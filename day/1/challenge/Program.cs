@@ -9,16 +9,17 @@ namespace challenge
     {
       var program = new Program();
 
-      var totalFuel = program.ExecuteProgram("input.txt");
-      Console.WriteLine($"Fuel required is: {totalFuel}.");
+      var fuelRequirements = program.ExecuteProgram("input.txt");
+      Console.WriteLine($"Base fuel required is: {fuelRequirements.BaseFuel}.");
+      Console.WriteLine($"Recursive fuel required is: {fuelRequirements.RecursiveFuel}.");
 
       Console.ReadLine();
     }
 
-    public int ExecuteProgram(string input)
+    public FuelRequirements ExecuteProgram(string input)
     {
-      var totalFuel = 0;
-      if (input == String.Empty) return totalFuel;
+      var fuelRequirements = new FuelRequirements() { BaseFuel = 0, RecursiveFuel = 0 };
+      if (input == String.Empty) return fuelRequirements;
 
       var fileStream = new FileStream(input, FileMode.Open);
       using (var streamReader = new StreamReader(fileStream))
@@ -27,19 +28,44 @@ namespace challenge
         {
           var line = streamReader.ReadLine();
           var mass = int.Parse(line);
-          var fuel = CalculateFuel(mass);
-          totalFuel += fuel;
 
-          Console.WriteLine($"- Mass: {mass}, fuel: {fuel}");
+          // calculate base fuel
+          var baseFuel = CalculateFuel(mass);
+
+          // calculate the recursive fuel
+          var recursiveFuel = CalculateRecursiveFuel(mass);
+
+          fuelRequirements.BaseFuel += baseFuel;
+          fuelRequirements.RecursiveFuel += recursiveFuel;
+
+          Console.WriteLine($"- Mass: {mass}, base fuel: {baseFuel}, recursive fuel: {recursiveFuel}");
         }
       }
 
-      return totalFuel;
+      return fuelRequirements;
     }
 
     public int CalculateFuel(int mass)
     {
       return ((int)Math.Floor(mass / 3.0)) - 2;
     }
+
+    public int CalculateRecursiveFuel(int mass)
+    {
+      return CalculateRecursiveFuelIterator(mass, 0);
+    }
+
+    private int CalculateRecursiveFuelIterator(int mass, int recursiveFuel)
+    {
+      var initialFuel = CalculateFuel(mass);
+      if (initialFuel <= 0) return recursiveFuel;
+      return CalculateRecursiveFuelIterator(initialFuel, initialFuel + recursiveFuel);
+    }
+  }
+
+  public class FuelRequirements
+  {
+    public int BaseFuel { get; set; }
+    public int RecursiveFuel { get; set; }
   }
 }

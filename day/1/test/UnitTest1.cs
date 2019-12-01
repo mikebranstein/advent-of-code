@@ -73,5 +73,47 @@ namespace test
       // assert
       Assert.AreEqual(fuel, 33583);
     }
+
+    [TestMethod]
+    public void Recursive_Mass_14_returns_2()
+    {
+      // arrange
+      var program = new challenge.Program();
+      var mass = 14;
+
+      // act
+      var fuel = program.CalculateRecursiveFuel(mass);
+
+      // assert
+      Assert.AreEqual(fuel, 2);
+    }
+
+    [TestMethod]
+    public void Recursive_Mass_1969_returns_966()
+    {
+      // arrange
+      var program = new challenge.Program();
+      var mass = 1969;
+
+      // act
+      var fuel = program.CalculateRecursiveFuel(mass);
+
+      // assert
+      Assert.AreEqual(fuel, 966);
+    }
+
+    [TestMethod]
+    public void Recursive_Mass_100756_returns_50346()
+    {
+      // arrange
+      var program = new challenge.Program();
+      var mass = 100756;
+
+      // act
+      var fuel = program.CalculateRecursiveFuel(mass);
+
+      // assert
+      Assert.AreEqual(fuel, 50346);
+    }
   }
 }
