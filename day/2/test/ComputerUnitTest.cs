@@ -395,7 +395,20 @@ namespace test
       // assert
       Assert.AreEqual(output, expectedOutput);
     }
+
+    [TestMethod]
+    public void Can_Generate_Output_2003_State()
+    {
+      // arrange
+      var program = new Computer();
+      var expectedOutput = 19690720;
+
+      // act
+      var memory = program.ReadMemoryFromFile("input_2003.txt");
+      var output = program.Run(memory);
+
+      // assert
+      Assert.AreEqual(output, expectedOutput);
+    }
   }
-
-
 }
