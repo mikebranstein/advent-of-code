@@ -14,7 +14,7 @@ namespace test
       var program = new Program();
 
       // act
-      var code = program.ReadInputFile("test_input_1.txt");
+      var code = program.ReadMemoryFromFile("test_input_1.txt");
 
       // assert
       Assert.AreEqual(code.Count, 5);
@@ -31,7 +31,7 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.ReadInputFile("op_1.txt");
+      var code = program.ReadMemoryFromFile("op_1.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
@@ -49,7 +49,7 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.ReadInputFile("op_2.txt");
+      var code = program.ReadMemoryFromFile("op_2.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
@@ -67,7 +67,7 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.ReadInputFile("op_99.txt");
+      var code = program.ReadMemoryFromFile("op_99.txt");
 
       // act
       var operation = program.ParseOperation(code, 4);
@@ -340,7 +340,7 @@ namespace test
       var program = new Program();
       var outputMemoryString =
         program.ConvertMemoryToString(
-          program.ReadInputFile("output.txt"));
+          program.ReadMemoryFromFile("output.txt"));
 
       // act
       var memory = program.Run("input.txt");
@@ -357,7 +357,7 @@ namespace test
       var program = new Program();
       var outputMemoryString =
         program.ConvertMemoryToString(
-          program.ReadInputFile("output_1202.txt"));
+          program.ReadMemoryFromFile("output_1202.txt"));
 
       // act
       var memory = program.Run("input_1202.txt");
@@ -366,6 +366,35 @@ namespace test
       Assert.AreEqual(memory, outputMemoryString);
     }
 
+    [TestMethod]
+    public void Can_Generate_Output_1202_State()
+    {
+      // arrange
+      var program = new Program();
+      var expectedOutput = program.ReadMemoryFromFile("output_1202.txt")[0];
+
+      // act
+      var memory = program.ReadMemoryFromFile("input_1202.txt");
+      var output = program.Run(memory);
+
+      // assert
+      Assert.AreEqual(output, expectedOutput);
+    }
+
+    [TestMethod]
+    public void Can_Generate_Output()
+    {
+      // arrange
+      var program = new Program();
+      var expectedOutput = program.ReadMemoryFromFile("output.txt")[0];
+
+      // act
+      var memory = program.ReadMemoryFromFile("input.txt");
+      var output = program.Run(memory);
+
+      // assert
+      Assert.AreEqual(output, expectedOutput);
+    }
   }
 
 

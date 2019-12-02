@@ -23,10 +23,18 @@ namespace challenge
       Console.ReadLine();
     }
 
+    public int Run(List<int> memory)
+    {
+      var memoryResult = ExecuteProgram(memory);
+
+      // program execution yields result in address 0
+      return memoryResult[0];
+    }
+
     public string Run(string inputFileName)
     {
       // get code
-      var memory = ReadInputFile(inputFileName);
+      var memory = ReadMemoryFromFile(inputFileName);
 
       Console.WriteLine($"Initial state: {ConvertMemoryToString(memory)}");
       Console.WriteLine("");
@@ -38,7 +46,7 @@ namespace challenge
     }
 
 
-    public List<int> ReadInputFile(string inputFileName)
+    public List<int> ReadMemoryFromFile(string inputFileName)
     {
       var memory = new List<int>();
 
