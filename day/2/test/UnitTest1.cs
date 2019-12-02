@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using challenge;
+using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace test
@@ -11,7 +11,7 @@ namespace test
     public void Can_Ingest_Code_1()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
 
       // act
       var code = program.ReadMemoryFromFile("test_input_1.txt");
@@ -30,7 +30,7 @@ namespace test
     public void Can_Identify_Operation_1()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = program.ReadMemoryFromFile("op_1.txt");
 
       // act
@@ -48,7 +48,7 @@ namespace test
     public void Can_Identify_Operation_2()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = program.ReadMemoryFromFile("op_2.txt");
 
       // act
@@ -66,7 +66,7 @@ namespace test
     public void Can_Identify_Operation_99()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = program.ReadMemoryFromFile("op_99.txt");
 
       // act
@@ -83,7 +83,7 @@ namespace test
     public void Can_Process_Operation_1_Add_Simple()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 1, 0, 3, 3, 99 };
 
       // act
@@ -102,7 +102,7 @@ namespace test
     public void Can_Process_Operation_1_Add_Chain()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
 
       // act - add one
@@ -140,7 +140,7 @@ namespace test
     public void Can_Process_Operation_2_Multiply_Simple()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 2, 0, 3, 5, 99, 0 };
 
       // act
@@ -160,7 +160,7 @@ namespace test
     public void Can_Process_Operation_2_Multiply_Chain()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
 
       // act - add one
@@ -202,7 +202,7 @@ namespace test
     public void Can_Process_Multi_Steps_1()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
 
       // act
@@ -228,7 +228,7 @@ namespace test
       // 1,9,10,3,2,3,11,0,99,30,40,50
 
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
@@ -255,7 +255,7 @@ namespace test
       // 1,0,0,0,99
 
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 1, 0, 0, 0, 99 };
 
       // act
@@ -276,7 +276,7 @@ namespace test
       // 2,3,0,3,99
 
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 2, 3, 0, 3, 99 };
 
       // act
@@ -295,7 +295,7 @@ namespace test
     public void Small_Program_3()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
 
       // act
       var memory = program.Run("small_program_3.txt");
@@ -309,7 +309,7 @@ namespace test
     public void Can_Convert_Code_to_String()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
@@ -323,7 +323,7 @@ namespace test
     public void Small_Program_4()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
 
       // act
       var codeString = program.Run("small_program_4.txt");
@@ -337,7 +337,7 @@ namespace test
     public void Complete_Input_Output()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var outputMemoryString =
         program.ConvertMemoryToString(
           program.ReadMemoryFromFile("output.txt"));
@@ -354,7 +354,7 @@ namespace test
     public void Complete_Input_Output_1202_State()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var outputMemoryString =
         program.ConvertMemoryToString(
           program.ReadMemoryFromFile("output_1202.txt"));
@@ -370,7 +370,7 @@ namespace test
     public void Can_Generate_Output_1202_State()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var expectedOutput = program.ReadMemoryFromFile("output_1202.txt")[0];
 
       // act
@@ -385,7 +385,7 @@ namespace test
     public void Can_Generate_Output()
     {
       // arrange
-      var program = new Program();
+      var program = new Computer();
       var expectedOutput = program.ReadMemoryFromFile("output.txt")[0];
 
       // act
