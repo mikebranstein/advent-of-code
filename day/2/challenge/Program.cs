@@ -14,7 +14,7 @@ namespace challenge
       Console.WriteLine("");
 
       var computer = new Computer();
-      var result = computer.Run("input.txt");
+      var result = computer.Run("input_1202.txt");
 
       Console.WriteLine($"End state: {result}");
       Console.WriteLine("");
