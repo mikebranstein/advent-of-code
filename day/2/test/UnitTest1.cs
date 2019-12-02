@@ -14,7 +14,7 @@ namespace test
       var program = new Program();
 
       // act
-      var code = program.IngestCode("test_input_1.txt");
+      var code = program.ReadInputFile("test_input_1.txt");
 
       // assert
       Assert.AreEqual(code.Count, 5);
@@ -31,16 +31,16 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.IngestCode("op_1.txt");
+      var code = program.ReadInputFile("op_1.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
 
       // assert no exception thrown
-      Assert.AreEqual(operation.Type, 1);
-      Assert.AreEqual(operation.ReadAddress1, 2);
-      Assert.AreEqual(operation.ReadAddress2, 3);
-      Assert.AreEqual(operation.OutpotPosition, 4);
+      Assert.AreEqual(operation.Opcode, 1);
+      Assert.AreEqual(operation.Parameter1, 2);
+      Assert.AreEqual(operation.Parameter2, 3);
+      Assert.AreEqual(operation.Parameter3, 4);
     }
 
 
@@ -49,16 +49,16 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.IngestCode("op_2.txt");
+      var code = program.ReadInputFile("op_2.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
 
       // assert no exception thrown
-      Assert.AreEqual(operation.Type, 2);
-      Assert.AreEqual(operation.ReadAddress1, 1);
-      Assert.AreEqual(operation.ReadAddress2, 3);
-      Assert.AreEqual(operation.OutpotPosition, 4);
+      Assert.AreEqual(operation.Opcode, 2);
+      Assert.AreEqual(operation.Parameter1, 1);
+      Assert.AreEqual(operation.Parameter2, 3);
+      Assert.AreEqual(operation.Parameter3, 4);
     }
 
 
@@ -67,16 +67,16 @@ namespace test
     {
       // arrange
       var program = new Program();
-      var code = program.IngestCode("op_99.txt");
+      var code = program.ReadInputFile("op_99.txt");
 
       // act
       var operation = program.ParseOperation(code, 4);
 
       // assert 
-      Assert.AreEqual(operation.Type, 99);
-      Assert.IsFalse(operation.ReadAddress1.HasValue);
-      Assert.IsFalse(operation.ReadAddress2.HasValue);
-      Assert.IsFalse(operation.OutpotPosition.HasValue);
+      Assert.AreEqual(operation.Opcode, 99);
+      Assert.IsFalse(operation.Parameter1.HasValue);
+      Assert.IsFalse(operation.Parameter2.HasValue);
+      Assert.IsFalse(operation.Parameter3.HasValue);
     }
 
     [TestMethod]
@@ -206,7 +206,7 @@ namespace test
       var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
 
       // act
-      var resultingCode = program.ExecuteSteps(code);
+      var resultingCode = program.ExecuteProgram(code);
 
       // assert second operation
       Assert.AreEqual(resultingCode[0], 2);
@@ -232,7 +232,7 @@ namespace test
       var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
-      var resultingCode = program.ExecuteSteps(code);
+      var resultingCode = program.ExecuteProgram(code);
 
       // assert second operation
       Assert.AreEqual(resultingCode[0], 3500);
@@ -259,7 +259,7 @@ namespace test
       var code = new List<int> { 1, 0, 0, 0, 99 };
 
       // act
-      var resultingCode = program.ExecuteSteps(code);
+      var resultingCode = program.ExecuteProgram(code);
 
       // assert second operation
       // 2,0,0,0,99
@@ -280,7 +280,7 @@ namespace test
       var code = new List<int> { 2, 3, 0, 3, 99 };
 
       // act
-      var resultingCode = program.ExecuteSteps(code);
+      var resultingCode = program.ExecuteProgram(code);
 
       // assert second operation
       // 2,3,0,6,99
@@ -298,11 +298,11 @@ namespace test
       var program = new Program();
 
       // act
-      var codeString = program.Run("small_program_3.txt");
+      var memory = program.Run("small_program_3.txt");
 
       // assert second operation
       // 2,4,4,5,99,9801
-      Assert.AreEqual(codeString, "2,4,4,5,99,9801");
+      Assert.AreEqual(memory, "2,4,4,5,99,9801");
     }
 
     [TestMethod]
@@ -313,7 +313,7 @@ namespace test
       var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
-      var codeString = program.ConvertCodeToString(code);
+      var codeString = program.ConvertMemoryToString(code);
 
       // assert 
       Assert.AreEqual(codeString, "1,9,10,3,2,3,11,0,99,30,40,50");
@@ -332,6 +332,40 @@ namespace test
       // 30,1,1,4,2,5,6,0,99
       Assert.AreEqual(codeString, "30,1,1,4,2,5,6,0,99");
     }
+
+    [TestMethod]
+    public void Complete_Input_Output()
+    {
+      // arrange
+      var program = new Program();
+      var outputMemoryString =
+        program.ConvertMemoryToString(
+          program.ReadInputFile("output.txt"));
+
+      // act
+      var memory = program.Run("input.txt");
+
+      // assert
+
+      Assert.AreEqual(memory, outputMemoryString);
+    }
+
+    [TestMethod]
+    public void Complete_Input_Output_1202_State()
+    {
+      // arrange
+      var program = new Program();
+      var outputMemoryString =
+        program.ConvertMemoryToString(
+          program.ReadInputFile("output_1202.txt"));
+
+      // act
+      var memory = program.Run("input_1202.txt");
+
+      // assert
+      Assert.AreEqual(memory, outputMemoryString);
+    }
+
   }
 
 

@@ -25,6 +25,10 @@
     <None Remove="15_steps %28copy%29.txt" />
     <None Remove="small_program_3 %28copy%29.txt" />
     <None Remove="test_input_1 %28copy%29.txt" />
+    <None Remove="input.txt" />
+    <None Remove="input_1202.txt" />
+    <None Remove="output.txt" />
+    <None Remove="output_1202.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Update="test_input_1.txt">
@@ -54,6 +58,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="small_program_4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="input_1202.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="output.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="output_1202.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -26,117 +26,104 @@ namespace challenge
     public string Run(string inputFileName)
     {
       // get code
-      var code = IngestCode(inputFileName);
+      var memory = ReadInputFile(inputFileName);
 
-      Console.WriteLine($"Initial state: {ConvertCodeToString(code)}");
+      Console.WriteLine($"Initial state: {ConvertMemoryToString(memory)}");
       Console.WriteLine("");
 
-      // Once you have a working computer, the first step is to restore the gravity
-      // assist program(your puzzle input) to the "1202 program alarm" state it had
-      // just before the last computer caught fire. To do this, before running the
-      // program, replace position 1 with the value 12 and replace position 2 with
-      // the value 2.What value is left at position 0 after the program halts?
+      var memoryResult = ExecuteProgram(memory);
+      var memoryString = ConvertMemoryToString(memoryResult);
 
-      code[1] = 12;
-      code[2] = 2;
-
-      Console.WriteLine($"1202 Program Alert state: {ConvertCodeToString(code)}");
-      Console.WriteLine("");
-
-
-      var resultingCode = ExecuteSteps(code);
-      var codeString = ConvertCodeToString(resultingCode);
-
-      return codeString;
+      return memoryString;
     }
 
 
-    public List<int> IngestCode(string inputFileName)
+    public List<int> ReadInputFile(string inputFileName)
     {
-      var code = new List<int>();
+      var memory = new List<int>();
 
       var fileStream = new FileStream(inputFileName, FileMode.Open);
       using (var streamReader = new StreamReader(fileStream))
       {
         if (!streamReader.EndOfStream)
         {
-          var codeLine = streamReader.ReadLine();
+          var line = streamReader.ReadLine();
 
-          var codeArray = codeLine.Split(",");
-          foreach (var codeFragment in codeArray)
+          var memoryArray = line.Split(",");
+          foreach (var address in memoryArray)
           {
             // convert to integer and add to list
-            code.Add(int.Parse(codeFragment));
+            memory.Add(int.Parse(address));
           }
         }
       }
 
-      return code;
+      return memory;
     }
 
     // outputs number of steps it's read
-    public List<int> ExecuteSteps(List<int> inputCode)
+    public List<int> ExecuteProgram(List<int> inputMemory)
     {
-      var code = inputCode;
+      var memory = inputMemory;
       int stepNumber = 0;
 
-      for(var index = 0; index <= inputCode.Count; index += 4)
+      for(var index = 0; index <= memory.Count; index += 4)
       {
-        var operation = ParseOperation(inputCode, index);
-        if (operation.Type == 1) code = ProcessOperation1(code, operation);
-        else if (operation.Type == 2) code = ProcessOperation2(code, operation);
-        else if (operation.Type == 99) break; // 99 menas end of program
+        var operation = ParseOperation(memory, index);
+        if (operation.Opcode == 1) memory = ProcessOperation1(memory, operation);
+        else if (operation.Opcode == 2) memory = ProcessOperation2(memory, operation);
+        else if (operation.Opcode == 99) break; // 99 menas end of program
 
         stepNumber++;
       }
 
-      return code;
+      return memory;
     }
 
-    public Operation ParseOperation(List<int> code, int stepIndex)
+    public Instruction ParseOperation(List<int> memory, int instructionPointer)
     {
-      var operation = new Operation() { Type = code[stepIndex] };
+      var operation = new Instruction() { Opcode = memory[instructionPointer] };
 
       // operation 99 is end of program
-      if (operation.Type == 99) return operation;
+      if (operation.Opcode == 99) return operation;
 
       // other operations have more data
-      operation.ReadAddress1 = code[stepIndex + 1];
-      operation.ReadAddress2 = code[stepIndex + 2];
-      operation.OutpotPosition = code[stepIndex + 3];
+      operation.Parameter1 = memory[instructionPointer + 1];
+      operation.Parameter2 = memory[instructionPointer + 2];
+      operation.Parameter3 = memory[instructionPointer + 3];
 
       return operation;
     }
 
-    public List<int> ProcessOperation1(List<int> code, Operation operation)
+    public List<int> ProcessOperation1(List<int> code, Instruction operation)
     {
-      var valueOfAddress1 = code[operation.ReadAddress1.Value];
-      var valueOfAddress2 = code[operation.ReadAddress2.Value];
+      var valueOfAddress1 = code[operation.Parameter1.Value];
+      var valueOfAddress2 = code[operation.Parameter2.Value];
 
       // addition
       var result = valueOfAddress1 + valueOfAddress2;
 
       // update code
-      code[operation.OutpotPosition.Value] = result;
+      code[operation.Parameter3.Value] = result;
 
       return code;
     }
 
-    public List<int> ProcessOperation2(List<int> code, Operation operation)
+    public List<int> ProcessOperation2(List<int> code, Instruction operation)
     {
-      var valueOfAddress1 = code[operation.ReadAddress1.Value];
-      var valueOfAddress2 = code[operation.ReadAddress2.Value];
+      var valueOfAddress1 = code[operation.Parameter1.Value];
+      var valueOfAddress2 = code[operation.Parameter2.Value];
 
       // addition
       var result = valueOfAddress1 * valueOfAddress2;
 
       // update code
-      code[operation.OutpotPosition.Value] = result;
+      code[operation.Parameter3.Value] = result;
 
       return code;
     }
 
-    public string ConvertCodeToString(List<int> code)
+    public string ConvertMemoryToString(List<int> code)
     {
       var codeString = "";
 
@@ -151,11 +138,11 @@ namespace challenge
     }
   }
 
-  public class Operation
+  public class Instruction
   {
-    public int Type { get; set; }
-    public int? ReadAddress1 { get; set; }
-    public int? ReadAddress2 { get; set; }
-    public int? OutpotPosition { get; set; }
+    public int Opcode { get; set; }
+    public int? Parameter1 { get; set; }
+    public int? Parameter2 { get; set; }
+    public int? Parameter3 { get; set; }
   }
 }

@@ -7,9 +7,14 @@
 
   <ItemGroup>
     <None Remove="input.txt" />
+    <None Remove="input %28copy%29.txt" />
+    <None Remove="output %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="input_1202.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
