@@ -9,14 +9,15 @@ namespace challenge
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("Distance calculation beginning.");
-      var program = new Program();
-      var shortestDistance = program.Run("input.txt");
-
-      Console.WriteLine($"Shortest distance: {shortestDistance}");
-      Console.WriteLine("Finished distance calculation.");
-
-      Console.ReadKey();
+      // Part 1
+      // Console.WriteLine("Distance calculation beginning.");
+      // var program = new Program();
+      // var shortestDistance = program.Run("input.txt");
+      // 
+      // Console.WriteLine($"Shortest distance: {shortestDistance}");
+      // Console.WriteLine("Finished distance calculation.");
+      // 
+      // Console.ReadKey();
     }
 
 
