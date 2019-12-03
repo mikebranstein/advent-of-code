@@ -5,4 +5,21 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Circuit\CircuitLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="input.txt" />
+    <None Remove="input %28copy%29.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

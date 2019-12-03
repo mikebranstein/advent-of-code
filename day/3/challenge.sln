@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{8F8A5177-95F7-47A0-8189-D25EB990173B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircuitLibrary", "Circuit\CircuitLibrary.csproj", "{7E55D40D-E0B6-4F84-9483-74F7B68EBE36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{98513221-E402-42CE-9194-FFB5D1D5A552}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +17,13 @@ Global
 		{8F8A5177-95F7-47A0-8189-D25EB990173B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F8A5177-95F7-47A0-8189-D25EB990173B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F8A5177-95F7-47A0-8189-D25EB990173B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E55D40D-E0B6-4F84-9483-74F7B68EBE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E55D40D-E0B6-4F84-9483-74F7B68EBE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E55D40D-E0B6-4F84-9483-74F7B68EBE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E55D40D-E0B6-4F84-9483-74F7B68EBE36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98513221-E402-42CE-9194-FFB5D1D5A552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98513221-E402-42CE-9194-FFB5D1D5A552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98513221-E402-42CE-9194-FFB5D1D5A552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98513221-E402-42CE-9194-FFB5D1D5A552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
