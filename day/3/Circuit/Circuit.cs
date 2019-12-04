@@ -276,8 +276,11 @@ namespace CircuitLibrary
 
       foreach (var intersection in intersections)
       {
-        var wire1Steps = _circuit[intersection.X, intersection.Y].WireState.Wire1StepCount;
-        var wire2Steps = _circuit[intersection.X, intersection.Y].WireState.Wire2StepCount;
+        //var wire1Steps = _circuit[intersection.X, intersection.Y].WireState.Wire1StepCount;
+        //var wire2Steps = _circuit[intersection.X, intersection.Y].WireState.Wire2StepCount;
+
+        var wire1Steps = CountWireSteps(_wires[0], intersection.X, intersection.Y);
+        var wire2Steps = CountWireSteps(_wires[1], intersection.X, intersection.Y);
 
         var totalSteps = wire1Steps + wire2Steps;
         if (totalSteps < shortestSteps) shortestSteps = totalSteps;
