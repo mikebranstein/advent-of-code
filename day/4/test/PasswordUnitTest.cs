@@ -185,5 +185,103 @@ namespace test
       Assert.AreEqual(passwords.Count, 1748);
     }
 
+    [TestMethod]
+    public void Can_Detect_Repeating_Digits_Without_Larger_Group_112233_to_112233()
+    {
+      // arrange
+      var password = new Password();
+      var possiblePasswords = password.GetPasswordRange(112233, 112233);
+
+      // act
+      var result = possiblePasswords.FindAll(x => Password.hasRepeatingDigitsWithoutLargerGroups(x));
+
+      // assert
+      Assert.AreEqual(result.Count, 1);
+      Assert.IsTrue(result.Exists(x => x == 112233));
+    }
+
+    [TestMethod]
+    public void Can_Detect_Repeating_Digits_Without_Larger_Group_123444_to_123444()
+    {
+      // arrange
+      var password = new Password();
+      var possiblePasswords = password.GetPasswordRange(123444, 123444);
+
+      // act
+      var result = possiblePasswords.FindAll(x => Password.hasRepeatingDigitsWithoutLargerGroups(x));
+
+      // assert
+      Assert.AreEqual(result.Count, 0);
+    }
+
+    [TestMethod]
+    public void Can_Detect_Repeating_Digits_Without_Larger_Group_111122_to_111122()
+    {
+      // arrange
+      var password = new Password();
+      var possiblePasswords = password.GetPasswordRange(111122, 111122);
+
+      // act
+      var result = possiblePasswords.FindAll(x => Password.hasRepeatingDigitsWithoutLargerGroups(x));
+
+      // assert
+      Assert.AreEqual(result.Count, 1);
+      Assert.IsTrue(result.Exists(x => x == 111122));
+    }
+
+    [TestMethod]
+    public void Can_Detect_Repeating_Digits_Without_Larger_Group_555555_to_555555()
+    {
+      // arrange
+      var password = new Password();
+      var possiblePasswords = password.GetPasswordRange(555555, 555555);
+
+      // act
+      var result = possiblePasswords.FindAll(x => Password.hasRepeatingDigitsWithoutLargerGroups(x));
+
+      // assert
+      Assert.AreEqual(result.Count, 0);
+    }
+
+    [TestMethod]
+    public void Program_Returns_Possible_Passwords_Part_2()
+    {
+      // arrange
+      var program = new Program();
+
+      // act
+      var passwords = program.RunPart2(123460, 123470);
+
+      // assert
+      Assert.AreEqual(passwords.Count, 1);
+      Assert.IsTrue(passwords.Passwords.Exists(x => x == 123466));
+    }
+
+    [TestMethod]
+    public void Program_Returns_Possible_Passwords_Part_2_2()
+    {
+      // arrange
+      var program = new Program();
+
+      // act
+      var passwords = program.RunPart2(123444, 123444);
+
+      // assert
+      Assert.AreEqual(passwords.Count, 0);
+    }
+
+    [TestMethod]
+    public void Program_Returns_Possible_Passwords_Part_2_Final()
+    {
+      // arrange
+      var program = new Program();
+
+      // act
+      var passwords = program.RunPart2(146810, 612564);
+
+      // assert
+      Assert.AreEqual(passwords.Count, 1180);
+    }
+
   }
 }
