@@ -15,5 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SecureContainer\SecureContainer.csproj" />
+    <ProjectReference Include="..\challenge\challenge.csproj" />
   </ItemGroup>
 </Project>

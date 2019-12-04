@@ -1,12 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using SecureContainer;
 
 namespace challenge
 {
-    class Program
+  public class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+      // Part 1
+      // Console.WriteLine("Beginning password search...");
+      // var program = new Program();
+      // var passwords = program.Run(146810, 612564);
+      // Console.WriteLine($"Num possible passwords: {passwords.Count}");
+      // foreach (var password in passwords.Passwords)
+      // {
+      //   Console.WriteLine($" - {password}");
+      // }
+      // Console.WriteLine("Completed password search...");
+      // Console.ReadKey();
+
+     
     }
+
+    public (int Count, List<int> Passwords) Run(int begin, int end)
+    {
+      var password = new Password();
+      var possiblePasswords =
+        password
+          .GetPasswordRange(begin, end)
+          .FindAll(Password.hasRepeatingDigits)
+          .FindAll(Password.hasNonDecreasingDigits);
+
+      return (Count: possiblePasswords.Count, Passwords: possiblePasswords);
+    }
+  }
 }
