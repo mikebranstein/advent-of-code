@@ -1070,20 +1070,21 @@ namespace test
       Assert.AreEqual(shortestSteps, expectedShortestSteps);
     }
 
-    [TestMethod]
-    public void Step_Two_Validation_Final()
-    {
-      // arrange
-      var program = new Program();
-      var inputFileName = "input_step_2.txt";
-      var expectedShortestSteps = 24052;
-
-      // act
-      var shortestSteps = program.RunWirePathDistance(inputFileName);
-
-      // assert
-      Assert.AreEqual(shortestSteps, expectedShortestSteps);
-    }
+    // Part 2 test- takes long time to run, but succeeds
+    //[TestMethod]
+    //public void Step_Two_Validation_Final()
+    //{
+    //  // arrange
+    //  var program = new Program();
+    //  var inputFileName = "input_step_2.txt";
+    //  var expectedShortestSteps = 24052;
+    //
+    //  // act
+    //  var shortestSteps = program.RunWirePathDistance(inputFileName);
+    //
+    //  // assert
+    //  Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    //}
 
   }
 }
