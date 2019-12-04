@@ -3,8 +3,6 @@ namespace CircuitLibrary
 {
   public class Port
   {
-    private bool _isCentralPort;
-    private WireState _wireState;
     public int X { get; set; }
     public int Y { get; set; }
 
@@ -12,15 +10,15 @@ namespace CircuitLibrary
     {
       this.X = X;
       this.Y = Y;
-      _isCentralPort = false;
-      _wireState = WireState.None;
+      IsCentralPort = false;
+      WireState = new WireState() { State = State.None, Wire2StepCount = 0, Wire1StepCount = 0 };
     }
 
     public WireState WireState { get; set; }
     public bool IsCentralPort { get; set; }
   }
 
-  public enum WireState
+  public enum State
   {
     None = 0,
     Wire1Present = 1,

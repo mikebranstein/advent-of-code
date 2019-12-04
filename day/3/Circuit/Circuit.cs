@@ -6,7 +6,7 @@ namespace CircuitLibrary
   public class Circuit
   {
     private Port[,] _circuit;
-
+    private List<Wire> _wires = new List<Wire>();
     public Port[,] Panel { get { return _circuit; } }
 
     public Circuit()
@@ -112,9 +112,12 @@ namespace CircuitLibrary
 
     public void AddWire(Wire wire)
     {
+      _wires.Add(wire);
+
       var centralPoint = GetCentralPort();
       var currentX = centralPoint.X;
       var currentY = centralPoint.Y;
+      var stepCounter = 0;
 
       foreach (var path in wire.Path)
       {
@@ -131,28 +134,53 @@ namespace CircuitLibrary
 
           // write the field
           var port = _circuit[currentX, currentY];
-          _circuit[currentX, currentY].WireState = GetNewWireState(port, wire);
+          _circuit[currentX, currentY].WireState.State = GetNewWireState(port, wire.Number);
+
+          // write the minimum port step count, using part 2 rules of loop detection
+          stepCounter++;
+          var updatedStepCounter = GetUpdatedStepCount(port, wire.Number, stepCounter);
+          if (wire.Number == 1) _circuit[currentX, currentY].WireState.Wire1StepCount = updatedStepCounter;
+          else if (wire.Number == 2) _circuit[currentX, currentY].WireState.Wire2StepCount = updatedStepCounter;
+
+          // update step counter in case it was reduced (changed) b/c of a loop
+          stepCounter = updatedStepCounter;
         }
       }
     }
 
-    public WireState GetNewWireState(Port port, Wire wire)
+    public int GetUpdatedStepCount(Port port, int wireNumber, int stepCounter)
     {
-      var newWireState = WireState.None;
-      var currentWireState = port.WireState;
+      if (wireNumber == 1)
+      {
+        if (port.WireState.Wire1StepCount > 0) return port.WireState.Wire1StepCount;
+        return stepCounter;
+      }
+      else if (wireNumber == 2)
+      {
+        if (port.WireState.Wire2StepCount > 0) return port.WireState.Wire2StepCount;
+        return stepCounter;
+      }
+
+      return stepCounter;
+    }
+
+    public State GetNewWireState(Port port, int wireNumber)
+    {
+      var newWireState = State.None;
+      var currentWireState = port.WireState.State;
 
       // if nothing is set, set to the current wire state
-      if (currentWireState == WireState.None)
-        newWireState = (WireState)wire.Number;
+      if (currentWireState == State.None)
+        newWireState = (State)wireNumber;
 
       // if the wire is already set to same state, keep the state
-      else if (currentWireState == (WireState)wire.Number)
+      else if (currentWireState == (State)wireNumber)
         newWireState = currentWireState;
 
       // if the wire state is set to a different wire number
-      else if ((currentWireState == WireState.Wire1Present && (WireState)wire.Number == WireState.Wire2Present) ||
-        (currentWireState == WireState.Wire2Present && (WireState)wire.Number == WireState.Wire1Present))
-        newWireState = WireState.Wire1And2Present;
+      else if ((currentWireState == State.Wire1Present && (State)wireNumber == State.Wire2Present) ||
+        (currentWireState == State.Wire2Present && (State)wireNumber == State.Wire1Present))
+        newWireState = State.Wire1And2Present;
 
       return newWireState;
     }
@@ -172,7 +200,7 @@ namespace CircuitLibrary
       {
         for (var y = 0; y < length; y++)
         {
-          if (_circuit[x, y].WireState == WireState.Wire1And2Present)
+          if (_circuit[x, y].WireState.State == State.Wire1And2Present)
             intersections.Add(_circuit[x, y]);
         }
       }
@@ -202,6 +230,60 @@ namespace CircuitLibrary
       }
 
       return shortestDistance;
+    }
+
+    public int CountWireSteps(Wire wire, int endX, int endY)
+    {
+      var steps = 0;
+
+      var centralPort = GetCentralPort();
+      var currentX = centralPort.X;
+      var currentY = centralPort.Y;
+
+      foreach (var path in wire.Path)
+      {
+        for (var x = 0; x < path.Magnitude; x++)
+        {
+          // move to the new location on the wire
+
+          // up affects +Y direction
+          if (path.Direction == Direction.Up) currentY++;
+          // down affects -Y direction
+          else if (path.Direction == Direction.Down) currentY--;
+          // right affects +X direction
+          else if (path.Direction == Direction.Right) currentX++;
+          // left affects -X direction
+          else if (path.Direction == Direction.Left) currentX--;
+
+          // increment step counter
+          steps++;
+
+          // when we've reached the end coordinates, stop
+          if (currentX == endX && currentY == endY) break;
+        }
+
+        if (currentX == endX && currentY == endY) break;
+      }
+
+      return steps;
+    }
+
+    public int GetClosestIntersectionByWirePath()
+    {
+      var intersections = GetIntersectionPorts();
+
+      var shortestSteps = int.MaxValue;
+
+      foreach (var intersection in intersections)
+      {
+        var wire1Steps = _circuit[intersection.X, intersection.Y].WireState.Wire1StepCount;
+        var wire2Steps = _circuit[intersection.X, intersection.Y].WireState.Wire2StepCount;
+
+        var totalSteps = wire1Steps + wire2Steps;
+        if (totalSteps < shortestSteps) shortestSteps = totalSteps;
+      }
+
+      return shortestSteps;
     }
   }
 }

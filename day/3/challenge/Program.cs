@@ -18,6 +18,17 @@ namespace challenge
       // Console.WriteLine("Finished distance calculation.");
       // 
       // Console.ReadKey();
+
+      // Part 2
+      Console.WriteLine("Wire path distance calculation beginning.");
+      var program = new Program();
+      var shortestDistance = program.RunWirePathDistance("input.txt");
+      
+      Console.WriteLine($"Shortest distance: {shortestDistance}");
+      Console.WriteLine("Finished distance calculation.");
+      
+      Console.ReadKey();
+
     }
 
 
@@ -34,6 +45,21 @@ namespace challenge
       var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
 
       return circuit.GetClosestIntersectionPortDistance();
+    }
+
+    public int RunWirePathDistance(string inputFileName)
+    {
+      var wirePaths = ReadWirePaths(inputFileName);
+
+      var wire1Path = wirePaths[0];
+      var wire1 = new Wire(1, wire1Path);
+
+      var wire2Path = wirePaths[1];
+      var wire2 = new Wire(2, wire2Path);
+
+      var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
+
+      return circuit.GetClosestIntersectionByWirePath();
     }
 
     public List<string> ReadWirePaths(string inputFileName)

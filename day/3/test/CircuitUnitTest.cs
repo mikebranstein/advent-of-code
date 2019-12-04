@@ -81,12 +81,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(1, wirePath);
-      var port = new Port(0,0) { WireState = WireState.None };
-      var expectedWireState = WireState.Wire1Present;
+      var port = new Port(0, 0) { WireState = new WireState() { State = State.None } };
+      var expectedWireState = State.Wire1Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -98,12 +98,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(2, wirePath);
-      var port = new Port(0,0) { WireState = WireState.None };
-      var expectedWireState = WireState.Wire2Present;
+      var port = new Port(0,0) { WireState = new WireState() { State = State.None } };
+      var expectedWireState = State.Wire2Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -115,12 +115,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(1, wirePath);
-      var port = new Port(0,0) { WireState = WireState.Wire1Present };
-      var expectedWireState = WireState.Wire1Present;
+      var port = new Port(0,0) { WireState = new WireState() { State = State.None } };
+      var expectedWireState = State.Wire1Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -133,12 +133,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(2, wirePath);
-      var port = new Port(0,0) { WireState = WireState.Wire2Present };
-      var expectedWireState = WireState.Wire2Present;
+      var port = new Port(0,0) { WireState = new WireState() { State = State.None } };
+      var expectedWireState = State.Wire2Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -151,12 +151,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(2, wirePath);
-      var port = new Port(0,0) { WireState = WireState.Wire1Present };
-      var expectedWireState = WireState.Wire1And2Present;
+      var port = new Port(0,0) { WireState = new WireState() { State = State.Wire1Present } };
+      var expectedWireState = State.Wire1And2Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -168,12 +168,12 @@ namespace test
       // arrange
       var wirePath = "R75";
       var wire = new Wire(1, wirePath);
-      var port = new Port(0,0) { WireState = WireState.Wire2Present };
-      var expectedWireState = WireState.Wire1And2Present;
+      var port = new Port(0,0) { WireState = new WireState() { State = State.Wire2Present } };
+      var expectedWireState = State.Wire1And2Present;
 
       // act
       var circuit = new Circuit();
-      var newWireState = circuit.GetNewWireState(port, wire);
+      var newWireState = circuit.GetNewWireState(port, wire.Number);
 
       // assert
       Assert.AreEqual(newWireState, expectedWireState);
@@ -208,11 +208,11 @@ namespace test
         for (var y = 0; y < height; y++)
         {
           if (x == 4 && y == 3)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 5 && y == 3)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -246,11 +246,11 @@ namespace test
         for (var y = 0; y < height; y++)
         {
           if (x == 1 && y == 3)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 2 && y == 3)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -285,11 +285,11 @@ namespace test
         for (var y = 0; y < height; y++)
         {
           if (x == 3 && y == 4)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 3 && y == 5)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -323,11 +323,11 @@ namespace test
         for (var y = 0; y < height; y++)
         {
           if (x == 3 && y == 1)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 3 && y == 2)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -367,21 +367,21 @@ namespace test
         for (var y = 0; y < height; y++)
         {
           if (x == 2 && y == 2)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 3 && y == 2)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 4 && y == 2)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 5 && y == 2)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 3 && y == 1)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 4 && y == 1)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 5 && y == 1)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -495,26 +495,26 @@ namespace test
           // 18,20 is wire 2
           // 19,20 is wire 2
           if (x == 13 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 14 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 15 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 16 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 17 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 18 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 19 && y == 20)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
 
           // 13,19 is wire 2
           // 19,19 is wire 2
           else if (x == 13 && y == 19)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 19 && y == 19)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
 
           // 13,18 is wire 2
           // 16,18 is wire 1
@@ -524,32 +524,32 @@ namespace test
           // 20,18 is wire 1
           // 21,18 is wire 1
           else if (x == 13 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 16 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 17 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 18 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 19 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1And2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1And2Present);
           else if (x == 20 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 21 && y == 18)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
           // 13,17 is wire 2
           // 16,17 is wire 1
           // 19,17 is wire 2
           // 21,17 is wire 1
           else if (x == 13 && y == 17)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 16 && y == 17)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 19 && y == 17)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 21 && y == 17)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
           // 13,16 is wire 2
           // 15,16 is wire 2
@@ -559,36 +559,36 @@ namespace test
           // 19,16 is wire 2
           // 21,16 is wire 1
           else if (x == 13 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 15 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 16 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1And2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1And2Present);
           else if (x == 17 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 18 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 19 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 21 && y == 16)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
           // 13,15 is wire 2
           // 16,15 is wire 1
           // 21,15 is wire 1
           else if (x == 13 && y == 15)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 16 && y == 15)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 21 && y == 15)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
           // 13,14 is wire 2
           // 21,14 is wire 1
           else if (x == 13 && y == 14)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire2Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire2Present);
           else if (x == 21 && y == 14)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
 
 
@@ -602,25 +602,25 @@ namespace test
           // 20,13 is wire 1
           // 21,13 is wire 1
           else if (x == 14 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 15 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 16 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 17 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 18 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 19 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 20 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
           else if (x == 21 && y == 13)
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.Wire1Present);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.Wire1Present);
 
 
           else
-            Assert.AreEqual(circuit.Panel[x, y].WireState, WireState.None);
+            Assert.AreEqual(circuit.Panel[x, y].WireState.State, State.None);
         }
       }
     }
@@ -957,25 +957,133 @@ namespace test
       Assert.AreEqual(dimensions.centralPortY, 32);
     }
 
+    // takes really long ;-)
+    //[TestMethod]
+    //public void Step_One_Validation()
+    //{
+    //  // arrange
+    //  var program = new Program();
+    //  var inputFileName = "input_step_1.txt";
+    //  var expectedShortestDistance = 4981;
+    //
+    //  // act
+    //  var shortestDistance = program.Run(inputFileName);
+    //
+    //  // assert
+    //  Assert.AreEqual(shortestDistance, expectedShortestDistance);
+    //}
+
+
     [TestMethod]
-    public void Step_One_Validation()
+    public void Closest_Wire_Intersection_By_Wire_Path_1()
+    {
+      // arrange
+      var wire1 = new Wire(1, "R75,D30,R83,U83,L12,D49,R71,U7,L72");
+      var wire2 = new Wire(2, "U62,R66,U55,R34,D71,R55,D58,R83");
+      var expectedShortestSteps = 610;
+
+      // act
+      var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
+      var shortestSteps = circuit.GetClosestIntersectionByWirePath();
+
+      // assert - panel size should be abs(min)+max+5 buffer
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
+
+    [TestMethod]
+    public void Closest_Wire_Intersection_By_Wire_Path_2()
+    {
+      // arrange
+      var wire1 = new Wire(1, "R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51");
+      var wire2 = new Wire(2, "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7");
+      var expectedShortestSteps = 410;
+
+      // act
+      var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
+      var shortestSteps = circuit.GetClosestIntersectionByWirePath();
+
+      // assert - panel size should be abs(min)+max+5 buffer
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
+
+    [TestMethod]
+    public void Step_Two_Validation_1()
     {
       // arrange
       var program = new Program();
-      var inputFileName = "input_step_1.txt";
-      var expectedShortestDistance = 4981;
+      var inputFileName = "input_1.txt";
+      var expectedShortestSteps = 610;
 
       // act
-      var shortestDistance = program.Run(inputFileName);
+      var shortestSteps = program.RunWirePathDistance(inputFileName);
 
       // assert
-      Assert.AreEqual(shortestDistance, expectedShortestDistance);
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
+
+    [TestMethod]
+    public void Step_Two_Validation_2()
+    {
+      // arrange
+      var program = new Program();
+      var inputFileName = "input_2.txt";
+      var expectedShortestSteps = 410;
+    
+      // act
+      var shortestSteps = program.RunWirePathDistance(inputFileName);
+    
+      // assert
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
     }
 
 
+    [TestMethod]
+    public void Closest_Wire_Intersection_By_Wire_Path_3_With_Loops()
+    {
+      // arrange
+      var wire1 = new Wire(1, "U2,R1,D1,L2,U2,R3,D1");
+      var wire2 = new Wire(2, "R3,U1,L1,D1,R1,U2,L2");
+      var expectedShortestSteps = 3 + 7; // 3 = wire 1 (no loop), 7 = wire 2 (with loop)
+
+      // act
+      var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
+      var shortestSteps = circuit.GetClosestIntersectionByWirePath();
+
+      // assert - panel size should be abs(min)+max+5 buffer
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
+
+
+    [TestMethod]
+    public void Closest_Wire_Intersection_By_Wire_Path_4_With_Loops()
+    {
+      // arrange
+      var wire1 = new Wire(1, "U3,R2,D2,L1,U1,R5,U3,L3,D4,R1,U3,R3,U3,L6");
+      var wire2 = new Wire(2, "R8,U8,L3,D2,L2,U2");
+      var expectedShortestSteps = 18 + 20; // 18 = wire 1 (loops), 30 = wire 2 (no loops)
+
+      // act
+      var circuit = new Circuit(new List<Wire>() { wire1, wire2 });
+      var shortestSteps = circuit.GetClosestIntersectionByWirePath();
+
+      // assert - panel size should be abs(min)+max+5 buffer
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
+
+    [TestMethod]
+    public void Step_Two_Validation_Final()
+    {
+      // arrange
+      var program = new Program();
+      var inputFileName = "input_step_2.txt";
+      var expectedShortestSteps = 24052;
+
+      // act
+      var shortestSteps = program.RunWirePathDistance(inputFileName);
+
+      // assert
+      Assert.AreEqual(shortestSteps, expectedShortestSteps);
+    }
 
   }
-
-
-
 }

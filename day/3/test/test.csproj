@@ -22,6 +22,7 @@
     <None Remove="input_1 %28copy%29.txt" />
     <None Remove="panel_reach_1 %28copy%29.txt" />
     <None Remove="input.txt" />
+    <None Remove="input_step_1 %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Update="input_1.txt">
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="input_step_1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="input_step_2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
