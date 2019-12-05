@@ -14,7 +14,7 @@ namespace IntcodeComputerTest
       var program = new Computer();
 
       // act
-      var code = program.ReadMemoryFromFile("test_input_1.txt");
+      var code = program.ReadMemoryFromFile("TestFile/test_input_1.txt");
 
       // assert
       Assert.AreEqual(code.Count, 5);
@@ -31,7 +31,7 @@ namespace IntcodeComputerTest
     {
       // arrange
       var program = new Computer();
-      var code = program.ReadMemoryFromFile("op_1.txt");
+      var code = program.ReadMemoryFromFile("TestFile/op_1.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
@@ -49,7 +49,7 @@ namespace IntcodeComputerTest
     {
       // arrange
       var program = new Computer();
-      var code = program.ReadMemoryFromFile("op_2.txt");
+      var code = program.ReadMemoryFromFile("TestFile/op_2.txt");
 
       // act
       var operation = program.ParseOperation(code, 0);
@@ -67,7 +67,7 @@ namespace IntcodeComputerTest
     {
       // arrange
       var program = new Computer();
-      var code = program.ReadMemoryFromFile("op_99.txt");
+      var code = program.ReadMemoryFromFile("TestFile/op_99.txt");
 
       // act
       var operation = program.ParseOperation(code, 4);
@@ -298,7 +298,7 @@ namespace IntcodeComputerTest
       var program = new Computer();
 
       // act
-      var memory = program.Run("small_program_3.txt");
+      var memory = program.Run("TestFile/small_program_3.txt");
 
       // assert second operation
       // 2,4,4,5,99,9801
@@ -326,7 +326,7 @@ namespace IntcodeComputerTest
       var program = new Computer();
 
       // act
-      var codeString = program.Run("small_program_4.txt");
+      var codeString = program.Run("TestFile/small_program_4.txt");
 
       // assert second operation
       // 30,1,1,4,2,5,6,0,99
@@ -340,10 +340,10 @@ namespace IntcodeComputerTest
       var program = new Computer();
       var outputMemoryString =
         program.ConvertMemoryToString(
-          program.ReadMemoryFromFile("output.txt"));
+          program.ReadMemoryFromFile("TestFile/output.txt"));
 
       // act
-      var memory = program.Run("input.txt");
+      var memory = program.Run("TestFile/input.txt");
 
       // assert
 
@@ -357,10 +357,10 @@ namespace IntcodeComputerTest
       var program = new Computer();
       var outputMemoryString =
         program.ConvertMemoryToString(
-          program.ReadMemoryFromFile("output_1202.txt"));
+          program.ReadMemoryFromFile("TestFile/output_1202.txt"));
 
       // act
-      var memory = program.Run("input_1202.txt");
+      var memory = program.Run("TestFile/input_1202.txt");
 
       // assert
       Assert.AreEqual(memory, outputMemoryString);
@@ -371,10 +371,10 @@ namespace IntcodeComputerTest
     {
       // arrange
       var program = new Computer();
-      var expectedOutput = program.ReadMemoryFromFile("output_1202.txt")[0];
+      var expectedOutput = program.ReadMemoryFromFile("TestFile/output_1202.txt")[0];
 
       // act
-      var memory = program.ReadMemoryFromFile("input_1202.txt");
+      var memory = program.ReadMemoryFromFile("TestFile/input_1202.txt");
       var output = program.Run(memory);
 
       // assert
@@ -386,10 +386,10 @@ namespace IntcodeComputerTest
     {
       // arrange
       var program = new Computer();
-      var expectedOutput = program.ReadMemoryFromFile("output.txt")[0];
+      var expectedOutput = program.ReadMemoryFromFile("TestFile/output.txt")[0];
 
       // act
-      var memory = program.ReadMemoryFromFile("input.txt");
+      var memory = program.ReadMemoryFromFile("TestFile/input.txt");
       var output = program.Run(memory);
 
       // assert
@@ -404,7 +404,7 @@ namespace IntcodeComputerTest
       var expectedOutput = 19690720;
 
       // act
-      var memory = program.ReadMemoryFromFile("input_2003.txt");
+      var memory = program.ReadMemoryFromFile("TestFile/input_2003.txt");
       var output = program.Run(memory);
 
       // assert
