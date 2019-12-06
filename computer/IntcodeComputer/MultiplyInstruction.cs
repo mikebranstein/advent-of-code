@@ -23,7 +23,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       var value1 = GetParameterValue(Parameter1, memory);
       var value2 = GetParameterValue(Parameter2, memory);
@@ -35,7 +35,7 @@ namespace IntcodeComputer
       memory[Parameter3.Value] = result;
 
       // function point advances 4 places
-      return PointerAdvancement;
+      instructionPointer += PointerAdvancement;
     }
   }
 }

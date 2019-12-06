@@ -50,8 +50,9 @@ namespace IntcodeComputerTest
       inputBuffer.Enqueue(77);
 
       // act
-      var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, inputBuffer, null);
+      var instructionPointer = 0;
+      var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, null);
 
       // assert 
       Assert.AreEqual(memory[3], 77);
@@ -70,10 +71,11 @@ namespace IntcodeComputerTest
       inputBuffer.Enqueue(88);
 
       // act
-      var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      var instructionPointerIncrement = instruction.Execute(memory, inputBuffer, null);
-      instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, instructionPointerIncrement);
-      instruction.Execute(memory, inputBuffer, null);
+      var instructionPointer = 0;
+      var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, null);
+      instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, null);
 
       // assert
       Assert.AreEqual(memory[3], 5);

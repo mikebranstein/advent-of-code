@@ -19,7 +19,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       // get value from addrss in parameter 1
       var output = GetParameterValue(Parameter1, memory);
@@ -27,7 +27,7 @@ namespace IntcodeComputer
       // pull value from input buffer
       outputBuffer.Enqueue(output);
 
-      return PointerAdvancement;
+      instructionPointer += PointerAdvancement;
     }
 
   }

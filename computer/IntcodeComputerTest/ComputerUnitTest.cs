@@ -84,8 +84,9 @@ namespace IntcodeComputerTest
       var memory = new List<int> { 1, 0, 3, 3, 99 };
 
       // act
-      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null, null);
+      var instructionPointer = 0;
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 1);
@@ -103,8 +104,9 @@ namespace IntcodeComputerTest
       var memory = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
 
       // act - add one
-      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null, null);
+      var instructionPointer = 0;
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 1);
@@ -118,8 +120,8 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[8], 99);
 
       // act - second add
-      instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 4);
-      instruction.Execute(memory, null, null);
+      instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 1);
@@ -140,8 +142,9 @@ namespace IntcodeComputerTest
       var memory = new List<int> { 2, 0, 3, 5, 99, 0 };
 
       // act
-      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null, null);
+      var instructionPointer = 0;
+      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 2);
@@ -160,8 +163,9 @@ namespace IntcodeComputerTest
       var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
 
       // act - add one
-      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null, null);
+      var instructionPointer = 0;
+      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 2);
@@ -177,8 +181,8 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[10], 30);
 
       // act - second add
-      instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 4);
-      instruction.Execute(memory, null, null);
+      instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 2);

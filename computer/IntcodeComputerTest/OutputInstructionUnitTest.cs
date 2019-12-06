@@ -50,8 +50,9 @@ namespace IntcodeComputerTest
       var outputBuffer = new Queue<int>();
 
       // act
-      var instruction = InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, inputBuffer, outputBuffer);
+      var instructionPointer = 0;
+      var instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
 
       // assert 
       Assert.AreEqual(memory[0], 4);
@@ -73,10 +74,11 @@ namespace IntcodeComputerTest
       var outputBuffer = new Queue<int>();
 
       // act
-      var instruction = InstructionFactory.ParseInstruction(memory, 0);
-      var instructionPointerIncrement = instruction.Execute(memory, inputBuffer, outputBuffer);
-      instruction = InstructionFactory.ParseInstruction(memory, instructionPointerIncrement);
-      instruction.Execute(memory, inputBuffer, outputBuffer);
+      var instructionPointer = 0;
+      var instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
+      instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
+      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
 
       // assert
       Assert.AreEqual(memory[0], 4);

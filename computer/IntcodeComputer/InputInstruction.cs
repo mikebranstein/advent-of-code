@@ -19,7 +19,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       // pull value from input buffer
       var input = inputBuffer.Dequeue();
@@ -27,7 +27,7 @@ namespace IntcodeComputer
       // write to memory - this will NEVER be in immediate mode, so it's always an address 
       memory[Parameter1.Value] = input;
 
-      return PointerAdvancement;
+      instructionPointer += PointerAdvancement;
     }
 
   }

@@ -60,9 +60,7 @@ namespace IntcodeComputer
       do
       {
         instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-        var instructionPointerIncrement = instruction.Execute(memory, inputBuffer, outputBuffer);
-        
-        instructionPointer += instructionPointerIncrement;
+        instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
       }
       while (instruction.GetType() != typeof(HaltInstruction));
     }

@@ -5,6 +5,6 @@ namespace IntcodeComputer
 {
   public interface IInstruction
   {
-    int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer);
+    void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer);
   }
 }
