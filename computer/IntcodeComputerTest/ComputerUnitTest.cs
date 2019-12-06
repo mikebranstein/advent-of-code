@@ -34,7 +34,7 @@ namespace IntcodeComputerTest
       var code = program.ReadMemoryFromFile("TestFile/op_1.txt");
 
       // act
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
 
       // assert no exception thrown
       Assert.AreEqual(operation.Opcode, 1);
@@ -52,7 +52,7 @@ namespace IntcodeComputerTest
       var code = program.ReadMemoryFromFile("TestFile/op_2.txt");
 
       // act
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
 
       // assert no exception thrown
       Assert.AreEqual(operation.Opcode, 2);
@@ -70,7 +70,7 @@ namespace IntcodeComputerTest
       var code = program.ReadMemoryFromFile("TestFile/op_99.txt");
 
       // act
-      var operation = program.ParseOperation(code, 4);
+      var operation = program.ParseInstruction(code, 4);
 
       // assert 
       Assert.AreEqual(operation.Opcode, 99);
@@ -87,7 +87,7 @@ namespace IntcodeComputerTest
       var code = new List<int> { 1, 0, 3, 3, 99 };
 
       // act
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
       var resultingCode = program.ProcessOperation1(code, operation);
 
       // assert code not changed
@@ -106,7 +106,7 @@ namespace IntcodeComputerTest
       var code = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
 
       // act - add one
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
       var resultingCode = program.ProcessOperation1(code, operation);
 
       // assert 
@@ -121,7 +121,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(resultingCode[8], 99);
 
       // act - second add
-      var operation2 = program.ParseOperation(resultingCode, 4);
+      var operation2 = program.ParseInstruction(resultingCode, 4);
       var resultingCode2 = program.ProcessOperation1(resultingCode, operation2);
 
       // assert second operation
@@ -144,7 +144,7 @@ namespace IntcodeComputerTest
       var code = new List<int> { 2, 0, 3, 5, 99, 0 };
 
       // act
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
       var resultingCode = program.ProcessOperation2(code, operation);
 
       // assert code not changed
@@ -164,7 +164,7 @@ namespace IntcodeComputerTest
       var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
 
       // act - add one
-      var operation = program.ParseOperation(code, 0);
+      var operation = program.ParseInstruction(code, 0);
       var resultingCode = program.ProcessOperation2(code, operation);
 
       // assert 
@@ -181,7 +181,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(resultingCode[10], 30);
 
       // act - second add
-      var operation2 = program.ParseOperation(resultingCode, 4);
+      var operation2 = program.ParseInstruction(resultingCode, 4);
       var resultingCode2 = program.ProcessOperation2(resultingCode, operation2);
 
       // assert second operation

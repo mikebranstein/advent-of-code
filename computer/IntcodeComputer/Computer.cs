@@ -58,9 +58,9 @@ namespace IntcodeComputer
       var memory = inputMemory;
       int stepNumber = 0;
 
-      for (var index = 0; index <= memory.Count; index += 4)
+      for (var instructionPointer = 0; instructionPointer <= memory.Count; instructionPointer += 4)
       {
-        var operation = ParseOperation(memory, index);
+        var operation = ParseInstruction(memory, instructionPointer);
         if (operation.Opcode == 1) memory = ProcessOperation1(memory, operation);
         else if (operation.Opcode == 2) memory = ProcessOperation2(memory, operation);
         else if (operation.Opcode == 99) break; // 99 menas end of program
@@ -71,7 +71,7 @@ namespace IntcodeComputer
       return memory;
     }
 
-    public Instruction ParseOperation(List<int> memory, int instructionPointer)
+    public Instruction ParseInstruction(List<int> memory, int instructionPointer)
     {
       var operation = new Instruction() { Opcode = memory[instructionPointer] };
 
