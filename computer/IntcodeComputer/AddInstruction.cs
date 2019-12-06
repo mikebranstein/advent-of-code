@@ -18,6 +18,9 @@ namespace IntcodeComputer
       Parameters[0] = new Parameter() { Value = parameter1 };
       Parameters[1] = new Parameter() { Value = parameter2 };
       Parameters[2] = new Parameter() { Value = parameter3 };
+
+      // determine parameter modes
+      CalculateParameterModes(opCode);
     }
 
     public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
