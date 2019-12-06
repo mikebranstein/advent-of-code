@@ -2,27 +2,27 @@ using System.Collections.Generic;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntcodeComputerTest
+namespace IntmemoryComputerTest
 {
   [TestClass]
   public class UnitTest1
   {
     [TestMethod]
-    public void Can_Ingest_Code_1()
+    public void Can_Ingest_memory_1()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
 
       // act
-      var code = program.ReadMemoryFromFile("TestFile/test_input_1.txt");
+      var memory = computer.ReadMemoryFromFile("TestFile/test_input_1.txt");
 
       // assert
-      Assert.AreEqual(code.Count, 5);
-      Assert.AreEqual(code[0], 1);
-      Assert.AreEqual(code[1], 1);
-      Assert.AreEqual(code[2], 2);
-      Assert.AreEqual(code[3], 3);
-      Assert.AreEqual(code[4], 99);
+      Assert.AreEqual(memory.Count, 5);
+      Assert.AreEqual(memory[0], 1);
+      Assert.AreEqual(memory[1], 1);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 3);
+      Assert.AreEqual(memory[4], 99);
     }
 
 
@@ -30,17 +30,17 @@ namespace IntcodeComputerTest
     public void Can_Identify_Operation_1()
     {
       // arrange
-      var program = new Computer();
-      var code = program.ReadMemoryFromFile("TestFile/op_1.txt");
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFile/op_1.txt");
 
       // act
-      var operation = program.ParseInstruction(code, 0);
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
 
       // assert no exception thrown
-      Assert.AreEqual(operation.Opcode, 1);
-      Assert.AreEqual(operation.Parameter1, 2);
-      Assert.AreEqual(operation.Parameter2, 3);
-      Assert.AreEqual(operation.Parameter3, 4);
+      Assert.AreEqual(instruction.OpCode, 1);
+      Assert.AreEqual(instruction.Parameter1.Value, 2);
+      Assert.AreEqual(instruction.Parameter2.Value, 3);
+      Assert.AreEqual(instruction.Parameter3.Value, 4);
     }
 
 
@@ -48,17 +48,17 @@ namespace IntcodeComputerTest
     public void Can_Identify_Operation_2()
     {
       // arrange
-      var program = new Computer();
-      var code = program.ReadMemoryFromFile("TestFile/op_2.txt");
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFile/op_2.txt");
 
       // act
-      var operation = program.ParseInstruction(code, 0);
+      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
 
       // assert no exception thrown
-      Assert.AreEqual(operation.Opcode, 2);
-      Assert.AreEqual(operation.Parameter1, 1);
-      Assert.AreEqual(operation.Parameter2, 3);
-      Assert.AreEqual(operation.Parameter3, 4);
+      Assert.AreEqual(instruction.OpCode, 2);
+      Assert.AreEqual(instruction.Parameter1.Value, 1);
+      Assert.AreEqual(instruction.Parameter2.Value, 3);
+      Assert.AreEqual(instruction.Parameter3.Value, 4);
     }
 
 
@@ -66,160 +66,156 @@ namespace IntcodeComputerTest
     public void Can_Identify_Operation_99()
     {
       // arrange
-      var program = new Computer();
-      var code = program.ReadMemoryFromFile("TestFile/op_99.txt");
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFile/op_99.txt");
 
       // act
-      var operation = program.ParseInstruction(code, 4);
+      var instruction = (HaltInstruction)InstructionFactory.ParseInstruction(memory, 4);
 
       // assert 
-      Assert.AreEqual(operation.Opcode, 99);
-      Assert.IsFalse(operation.Parameter1.HasValue);
-      Assert.IsFalse(operation.Parameter2.HasValue);
-      Assert.IsFalse(operation.Parameter3.HasValue);
+      Assert.AreEqual(instruction.OpCode, 99);
+      Assert.AreEqual(instruction.Parameters.Length, 0);
     }
 
     [TestMethod]
     public void Can_Process_Operation_1_Add_Simple()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 1, 0, 3, 3, 99 };
+      var memory = new List<int> { 1, 0, 3, 3, 99 };
 
       // act
-      var operation = program.ParseInstruction(code, 0);
-      var resultingCode = program.ProcessOperation1(code, operation);
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
+      instruction.Execute(memory, null);
 
-      // assert code not changed
-      Assert.AreEqual(resultingCode[0], 1);
-      Assert.AreEqual(resultingCode[1], 0);
-      Assert.AreEqual(resultingCode[2], 3);
-      Assert.AreEqual(resultingCode[3], 4);
-      Assert.AreEqual(resultingCode[4], 99);
+      // assert memory not changed
+      Assert.AreEqual(memory[0], 1);
+      Assert.AreEqual(memory[1], 0);
+      Assert.AreEqual(memory[2], 3);
+      Assert.AreEqual(memory[3], 4);
+      Assert.AreEqual(memory[4], 99);
     }
 
     [TestMethod]
     public void Can_Process_Operation_1_Add_Chain()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
+      var computer = new Computer();
+      var memory = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
 
       // act - add one
-      var operation = program.ParseInstruction(code, 0);
-      var resultingCode = program.ProcessOperation1(code, operation);
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
+      instruction.Execute(memory, null);
 
       // assert 
-      Assert.AreEqual(resultingCode[0], 1);
-      Assert.AreEqual(resultingCode[1], 3);
-      Assert.AreEqual(resultingCode[2], 2);
-      Assert.AreEqual(resultingCode[3], 5);
-      Assert.AreEqual(resultingCode[4], 1);
-      Assert.AreEqual(resultingCode[5], 7);
-      Assert.AreEqual(resultingCode[6], 0);
-      Assert.AreEqual(resultingCode[7], 1);
-      Assert.AreEqual(resultingCode[8], 99);
+      Assert.AreEqual(memory[0], 1);
+      Assert.AreEqual(memory[1], 3);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 1);
+      Assert.AreEqual(memory[5], 7);
+      Assert.AreEqual(memory[6], 0);
+      Assert.AreEqual(memory[7], 1);
+      Assert.AreEqual(memory[8], 99);
 
       // act - second add
-      var operation2 = program.ParseInstruction(resultingCode, 4);
-      var resultingCode2 = program.ProcessOperation1(resultingCode, operation2);
+      instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 4);
+      instruction.Execute(memory, null);
 
       // assert second operation
-      Assert.AreEqual(resultingCode2[0], 1);
-      Assert.AreEqual(resultingCode2[1], 2);
-      Assert.AreEqual(resultingCode2[2], 2);
-      Assert.AreEqual(resultingCode2[3], 5);
-      Assert.AreEqual(resultingCode2[4], 1);
-      Assert.AreEqual(resultingCode2[5], 7);
-      Assert.AreEqual(resultingCode2[6], 0);
-      Assert.AreEqual(resultingCode2[7], 1);
-      Assert.AreEqual(resultingCode2[8], 99);
+      Assert.AreEqual(memory[0], 1);
+      Assert.AreEqual(memory[1], 2);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 1);
+      Assert.AreEqual(memory[5], 7);
+      Assert.AreEqual(memory[6], 0);
+      Assert.AreEqual(memory[7], 1);
+      Assert.AreEqual(memory[8], 99);
     }
 
     [TestMethod]
     public void Can_Process_Operation_2_Multiply_Simple()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 2, 0, 3, 5, 99, 0 };
+      var memory = new List<int> { 2, 0, 3, 5, 99, 0 };
 
       // act
-      var operation = program.ParseInstruction(code, 0);
-      var resultingCode = program.ProcessOperation2(code, operation);
+      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
+      instruction.Execute(memory, null);
 
-      // assert code not changed
-      Assert.AreEqual(resultingCode[0], 2);
-      Assert.AreEqual(resultingCode[1], 0);
-      Assert.AreEqual(resultingCode[2], 3);
-      Assert.AreEqual(resultingCode[3], 5);
-      Assert.AreEqual(resultingCode[4], 99);
-      Assert.AreEqual(resultingCode[5], 10);
+      // assert memory not changed
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 0);
+      Assert.AreEqual(memory[2], 3);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 99);
+      Assert.AreEqual(memory[5], 10);
     }
 
     [TestMethod]
     public void Can_Process_Operation_2_Multiply_Chain()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
+      var computer = new Computer();
+      var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
 
       // act - add one
-      var operation = program.ParseInstruction(code, 0);
-      var resultingCode = program.ProcessOperation2(code, operation);
+      var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
+      instruction.Execute(memory, null);
 
       // assert 
-      Assert.AreEqual(resultingCode[0], 2);
-      Assert.AreEqual(resultingCode[1], 3);
-      Assert.AreEqual(resultingCode[2], 2);
-      Assert.AreEqual(resultingCode[3], 5);
-      Assert.AreEqual(resultingCode[4], 2);
-      Assert.AreEqual(resultingCode[5], 10);
-      Assert.AreEqual(resultingCode[6], 0);
-      Assert.AreEqual(resultingCode[7], 1);
-      Assert.AreEqual(resultingCode[8], 99);
-      Assert.AreEqual(resultingCode[9], 20);
-      Assert.AreEqual(resultingCode[10], 30);
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 3);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 2);
+      Assert.AreEqual(memory[5], 10);
+      Assert.AreEqual(memory[6], 0);
+      Assert.AreEqual(memory[7], 1);
+      Assert.AreEqual(memory[8], 99);
+      Assert.AreEqual(memory[9], 20);
+      Assert.AreEqual(memory[10], 30);
 
       // act - second add
-      var operation2 = program.ParseInstruction(resultingCode, 4);
-      var resultingCode2 = program.ProcessOperation2(resultingCode, operation2);
+      instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 4);
+      instruction.Execute(memory, null);
 
       // assert second operation
-      Assert.AreEqual(resultingCode2[0], 2);
-      Assert.AreEqual(resultingCode2[1], 60);
-      Assert.AreEqual(resultingCode2[2], 2);
-      Assert.AreEqual(resultingCode2[3], 5);
-      Assert.AreEqual(resultingCode2[4], 2);
-      Assert.AreEqual(resultingCode2[5], 10);
-      Assert.AreEqual(resultingCode2[6], 0);
-      Assert.AreEqual(resultingCode2[7], 1);
-      Assert.AreEqual(resultingCode2[8], 99);
-      Assert.AreEqual(resultingCode2[9], 20);
-      Assert.AreEqual(resultingCode2[10], 30);
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 60);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 2);
+      Assert.AreEqual(memory[5], 10);
+      Assert.AreEqual(memory[6], 0);
+      Assert.AreEqual(memory[7], 1);
+      Assert.AreEqual(memory[8], 99);
+      Assert.AreEqual(memory[9], 20);
+      Assert.AreEqual(memory[10], 30);
     }
 
     [TestMethod]
     public void Can_Process_Multi_Steps_1()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
+      var computer = new Computer();
+      var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
 
       // act
-      var resultingCode = program.ExecuteProgram(code);
+      computer.ExecuteProgram(memory, null);
 
       // assert second operation
-      Assert.AreEqual(resultingCode[0], 2);
-      Assert.AreEqual(resultingCode[1], 60);
-      Assert.AreEqual(resultingCode[2], 2);
-      Assert.AreEqual(resultingCode[3], 5);
-      Assert.AreEqual(resultingCode[4], 2);
-      Assert.AreEqual(resultingCode[5], 10);
-      Assert.AreEqual(resultingCode[6], 0);
-      Assert.AreEqual(resultingCode[7], 1);
-      Assert.AreEqual(resultingCode[8], 99);
-      Assert.AreEqual(resultingCode[9], 20);
-      Assert.AreEqual(resultingCode[10], 30);
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 60);
+      Assert.AreEqual(memory[2], 2);
+      Assert.AreEqual(memory[3], 5);
+      Assert.AreEqual(memory[4], 2);
+      Assert.AreEqual(memory[5], 10);
+      Assert.AreEqual(memory[6], 0);
+      Assert.AreEqual(memory[7], 1);
+      Assert.AreEqual(memory[8], 99);
+      Assert.AreEqual(memory[9], 20);
+      Assert.AreEqual(memory[10], 30);
     }
 
     [TestMethod]
@@ -228,25 +224,25 @@ namespace IntcodeComputerTest
       // 1,9,10,3,2,3,11,0,99,30,40,50
 
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
+      var computer = new Computer();
+      var memory = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
-      var resultingCode = program.ExecuteProgram(code);
+      computer.ExecuteProgram(memory, null);
 
       // assert second operation
-      Assert.AreEqual(resultingCode[0], 3500);
-      Assert.AreEqual(resultingCode[1], 9);
-      Assert.AreEqual(resultingCode[2], 10);
-      Assert.AreEqual(resultingCode[3], 70);
-      Assert.AreEqual(resultingCode[4], 2);
-      Assert.AreEqual(resultingCode[5], 3);
-      Assert.AreEqual(resultingCode[6], 11);
-      Assert.AreEqual(resultingCode[7], 0);
-      Assert.AreEqual(resultingCode[8], 99);
-      Assert.AreEqual(resultingCode[9], 30);
-      Assert.AreEqual(resultingCode[10], 40);
-      Assert.AreEqual(resultingCode[11], 50);
+      Assert.AreEqual(memory[0], 3500);
+      Assert.AreEqual(memory[1], 9);
+      Assert.AreEqual(memory[2], 10);
+      Assert.AreEqual(memory[3], 70);
+      Assert.AreEqual(memory[4], 2);
+      Assert.AreEqual(memory[5], 3);
+      Assert.AreEqual(memory[6], 11);
+      Assert.AreEqual(memory[7], 0);
+      Assert.AreEqual(memory[8], 99);
+      Assert.AreEqual(memory[9], 30);
+      Assert.AreEqual(memory[10], 40);
+      Assert.AreEqual(memory[11], 50);
     }
 
     [TestMethod]
@@ -255,19 +251,19 @@ namespace IntcodeComputerTest
       // 1,0,0,0,99
 
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 1, 0, 0, 0, 99 };
+      var computer = new Computer();
+      var memory = new List<int> { 1, 0, 0, 0, 99 };
 
       // act
-      var resultingCode = program.ExecuteProgram(code);
+      computer.ExecuteProgram(memory, null);
 
       // assert second operation
       // 2,0,0,0,99
-      Assert.AreEqual(resultingCode[0], 2);
-      Assert.AreEqual(resultingCode[1], 0);
-      Assert.AreEqual(resultingCode[2], 0);
-      Assert.AreEqual(resultingCode[3], 0);
-      Assert.AreEqual(resultingCode[4], 99);
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 0);
+      Assert.AreEqual(memory[2], 0);
+      Assert.AreEqual(memory[3], 0);
+      Assert.AreEqual(memory[4], 99);
     }
 
     [TestMethod]
@@ -276,29 +272,29 @@ namespace IntcodeComputerTest
       // 2,3,0,3,99
 
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 2, 3, 0, 3, 99 };
+      var computer = new Computer();
+      var memory = new List<int> { 2, 3, 0, 3, 99 };
 
       // act
-      var resultingCode = program.ExecuteProgram(code);
+      computer.ExecuteProgram(memory, null);
 
       // assert second operation
       // 2,3,0,6,99
-      Assert.AreEqual(resultingCode[0], 2);
-      Assert.AreEqual(resultingCode[1], 3);
-      Assert.AreEqual(resultingCode[2], 0);
-      Assert.AreEqual(resultingCode[3], 6);
-      Assert.AreEqual(resultingCode[4], 99);
+      Assert.AreEqual(memory[0], 2);
+      Assert.AreEqual(memory[1], 3);
+      Assert.AreEqual(memory[2], 0);
+      Assert.AreEqual(memory[3], 6);
+      Assert.AreEqual(memory[4], 99);
     }
 
     [TestMethod]
     public void Small_Program_3()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
 
       // act
-      var memory = program.Run("TestFile/small_program_3.txt");
+      var memory = computer.Run("TestFile/small_program_3.txt", null);
 
       // assert second operation
       // 2,4,4,5,99,9801
@@ -306,47 +302,46 @@ namespace IntcodeComputerTest
     }
 
     [TestMethod]
-    public void Can_Convert_Code_to_String()
+    public void Can_Convert_memory_to_String()
     {
       // arrange
-      var program = new Computer();
-      var code = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
+      var computer = new Computer();
+      var memory = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
-      var codeString = program.ConvertMemoryToString(code);
+      var memoryString = computer.ConvertMemoryToString(memory);
 
       // assert 
-      Assert.AreEqual(codeString, "1,9,10,3,2,3,11,0,99,30,40,50");
+      Assert.AreEqual(memoryString, "1,9,10,3,2,3,11,0,99,30,40,50");
     }
 
     [TestMethod]
     public void Small_Program_4()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
 
       // act
-      var codeString = program.Run("TestFile/small_program_4.txt");
+      var memoryString = computer.Run("TestFile/small_program_4.txt", null);
 
       // assert second operation
       // 30,1,1,4,2,5,6,0,99
-      Assert.AreEqual(codeString, "30,1,1,4,2,5,6,0,99");
+      Assert.AreEqual(memoryString, "30,1,1,4,2,5,6,0,99");
     }
 
     [TestMethod]
     public void Complete_Input_Output()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
       var outputMemoryString =
-        program.ConvertMemoryToString(
-          program.ReadMemoryFromFile("TestFile/output.txt"));
+        computer.ConvertMemoryToString(
+          computer.ReadMemoryFromFile("TestFile/output.txt"));
 
       // act
-      var memory = program.Run("TestFile/input.txt");
+      var memory = computer.Run("TestFile/input.txt", null);
 
       // assert
-
       Assert.AreEqual(memory, outputMemoryString);
     }
 
@@ -354,13 +349,13 @@ namespace IntcodeComputerTest
     public void Complete_Input_Output_1202_State()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
       var outputMemoryString =
-        program.ConvertMemoryToString(
-          program.ReadMemoryFromFile("TestFile/output_1202.txt"));
+        computer.ConvertMemoryToString(
+          computer.ReadMemoryFromFile("TestFile/output_1202.txt"));
 
       // act
-      var memory = program.Run("TestFile/input_1202.txt");
+      var memory = computer.Run("TestFile/input_1202.txt", null);
 
       // assert
       Assert.AreEqual(memory, outputMemoryString);
@@ -370,12 +365,12 @@ namespace IntcodeComputerTest
     public void Can_Generate_Output_1202_State()
     {
       // arrange
-      var program = new Computer();
-      var expectedOutput = program.ReadMemoryFromFile("TestFile/output_1202.txt")[0];
+      var computer = new Computer();
+      var expectedOutput = computer.ReadMemoryFromFile("TestFile/output_1202.txt")[0];
 
       // act
-      var memory = program.ReadMemoryFromFile("TestFile/input_1202.txt");
-      var output = program.Run(memory);
+      var memory = computer.ReadMemoryFromFile("TestFile/input_1202.txt");
+      var output = computer.Run(memory, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);
@@ -385,12 +380,12 @@ namespace IntcodeComputerTest
     public void Can_Generate_Output()
     {
       // arrange
-      var program = new Computer();
-      var expectedOutput = program.ReadMemoryFromFile("TestFile/output.txt")[0];
+      var computer = new Computer();
+      var expectedOutput = computer.ReadMemoryFromFile("TestFile/output.txt")[0];
 
       // act
-      var memory = program.ReadMemoryFromFile("TestFile/input.txt");
-      var output = program.Run(memory);
+      var memory = computer.ReadMemoryFromFile("TestFile/input.txt");
+      var output = computer.Run(memory, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);
@@ -400,12 +395,12 @@ namespace IntcodeComputerTest
     public void Can_Generate_Output_2003_State()
     {
       // arrange
-      var program = new Computer();
+      var computer = new Computer();
       var expectedOutput = 19690720;
 
       // act
-      var memory = program.ReadMemoryFromFile("TestFile/input_2003.txt");
-      var output = program.Run(memory);
+      var memory = computer.ReadMemoryFromFile("TestFile/input_2003.txt");
+      var output = computer.Run(memory, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);

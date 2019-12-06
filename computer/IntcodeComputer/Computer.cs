@@ -6,15 +6,15 @@ namespace IntcodeComputer
 {
     public class Computer
     {
-    public int Run(List<int> memory)
+    public int Run(List<int> memory, Queue<int> inputBuffer)
     {
-      var memoryResult = ExecuteProgram(memory);
+      ExecuteProgram(memory, inputBuffer);
 
       // program execution yields result in address 0
-      return memoryResult[0];
+      return memory[0];
     }
 
-    public string Run(string inputFileName)
+    public string Run(string inputFileName, Queue<int> inputBuffer)
     {
       // get code
       var memory = ReadMemoryFromFile(inputFileName);
@@ -22,8 +22,8 @@ namespace IntcodeComputer
       Console.WriteLine($"Initial state: {ConvertMemoryToString(memory)}");
       Console.WriteLine("");
 
-      var memoryResult = ExecuteProgram(memory);
-      var memoryString = ConvertMemoryToString(memoryResult);
+      ExecuteProgram(memory, inputBuffer);
+      var memoryString = ConvertMemoryToString(memory);
 
       return memoryString;
     }
@@ -53,65 +53,18 @@ namespace IntcodeComputer
     }
 
     // outputs number of steps it's read
-    public List<int> ExecuteProgram(List<int> inputMemory)
+    public void ExecuteProgram(List<int> memory, Queue<int> inputBuffer)
     {
-      var memory = inputMemory;
-      int stepNumber = 0;
-
-      for (var instructionPointer = 0; instructionPointer <= memory.Count; instructionPointer += 4)
+      int instructionPointer = 0;
+      IInstruction instruction = null;
+      do
       {
-        var operation = ParseInstruction(memory, instructionPointer);
-        if (operation.Opcode == 1) memory = ProcessOperation1(memory, operation);
-        else if (operation.Opcode == 2) memory = ProcessOperation2(memory, operation);
-        else if (operation.Opcode == 99) break; // 99 menas end of program
-
-        stepNumber++;
+        instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
+        var instructionPointerIncrement = instruction.Execute(memory, inputBuffer);
+        
+        instructionPointer += instructionPointerIncrement;
       }
-
-      return memory;
-    }
-
-    public Instruction ParseInstruction(List<int> memory, int instructionPointer)
-    {
-      var operation = new Instruction() { Opcode = memory[instructionPointer] };
-
-      // operation 99 is end of program
-      if (operation.Opcode == 99) return operation;
-
-      // other operations have more data
-      operation.Parameter1 = memory[instructionPointer + 1];
-      operation.Parameter2 = memory[instructionPointer + 2];
-      operation.Parameter3 = memory[instructionPointer + 3];
-
-      return operation;
-    }
-
-    public List<int> ProcessOperation1(List<int> code, Instruction operation)
-    {
-      var valueOfAddress1 = code[operation.Parameter1.Value];
-      var valueOfAddress2 = code[operation.Parameter2.Value];
-
-      // addition
-      var result = valueOfAddress1 + valueOfAddress2;
-
-      // update code
-      code[operation.Parameter3.Value] = result;
-
-      return code;
-    }
-
-    public List<int> ProcessOperation2(List<int> code, Instruction operation)
-    {
-      var valueOfAddress1 = code[operation.Parameter1.Value];
-      var valueOfAddress2 = code[operation.Parameter2.Value];
-
-      // addition
-      var result = valueOfAddress1 * valueOfAddress2;
-
-      // update code
-      code[operation.Parameter3.Value] = result;
-
-      return code;
+      while (instruction.GetType() != typeof(HaltInstruction));
     }
 
     public string ConvertMemoryToString(List<int> code)
@@ -127,13 +80,5 @@ namespace IntcodeComputer
       // strip last character off end - ,
       return codeString.Remove(codeString.Length - 1);
     }
-  }
-
-  public class Instruction
-  {
-    public int Opcode { get; set; }
-    public int? Parameter1 { get; set; }
-    public int? Parameter2 { get; set; }
-    public int? Parameter3 { get; set; }
   }
 }
