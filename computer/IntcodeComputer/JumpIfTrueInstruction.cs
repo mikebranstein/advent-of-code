@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace IntcodeComputer
+{
+  public class JumpIfTrueInstruction : BaseInstruction, IInstruction
+  {
+    public Parameter Parameter1 => Parameters[0];
+    public Parameter Parameter2 => Parameters[1];
+
+    public JumpIfTrueInstruction(int opCode, int parameter1, int parameter2)
+    {
+      base.OpCode = 5;
+      base.PointerAdvancement = 3;
+
+      Parameters = new Parameter[2];
+      Parameters[0] = new Parameter() { Value = parameter1 };
+      Parameters[1] = new Parameter() { Value = parameter2 };
+
+      // determine parameter modes
+      CalculateParameterModes(opCode);
+    }
+
+    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    {
+      // if the first parameter is non-zero, it sets the instruction
+      // pointer to the value from the second parameter.
+      // Otherwise, it does nothing
+      var booleanValue = GetParameterValue(Parameter1, memory);
+      if (booleanValue != 0)
+        instructionPointer = GetParameterValue(Parameter2, memory);
+      else
+        instructionPointer += PointerAdvancement;
+    }
+  }
+}

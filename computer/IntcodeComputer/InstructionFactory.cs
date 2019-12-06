@@ -35,6 +35,32 @@ namespace IntcodeComputer
           opCode,
           memory[instructionPointer + 1]);
 
+      else if (baseOpCode == 5)
+        return new JumpIfTrueInstruction(
+          opCode,
+          memory[instructionPointer + 1],
+          memory[instructionPointer + 2]);
+
+      else if (baseOpCode == 6)
+        return new JumpIfFalseInstruction(
+          opCode,
+          memory[instructionPointer + 1],
+          memory[instructionPointer + 2]);
+
+      else if (baseOpCode == 7)
+        return new LessThanInstruction(
+          opCode,
+          memory[instructionPointer + 1],
+          memory[instructionPointer + 2],
+          memory[instructionPointer + 3]);
+
+      else if (baseOpCode == 8)
+        return new EqualsInstruction(
+          opCode,
+          memory[instructionPointer + 1],
+          memory[instructionPointer + 2],
+          memory[instructionPointer + 3]);
+
       else if (baseOpCode == 99) return new HaltInstruction();
 
       throw new Exception($"Invalid OpCode detected: {opCode}");

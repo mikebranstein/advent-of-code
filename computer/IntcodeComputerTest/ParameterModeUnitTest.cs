@@ -382,5 +382,26 @@ namespace IntcodeComputerTest
       Assert.AreEqual(finalDiagnosticCodeOutput, 12896948);
       Assert.AreEqual(outputBuffer.Count, 0);
     }
+
+    [TestMethod]
+    public void TEST_Diagnostics_2()
+    {
+      // arrange
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
+
+      var inputBuffer = new Queue<int>();
+      inputBuffer.Enqueue(5);
+
+      var outputBuffer = new Queue<int>();
+
+      // act
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      // assert
+      Assert.AreEqual(inputBuffer.Count, 0);
+      Assert.AreEqual(outputBuffer.Dequeue(), 7704130);
+      Assert.AreEqual(outputBuffer.Count, 0);
+    }
   }
 }
