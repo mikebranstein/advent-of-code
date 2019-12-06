@@ -6,15 +6,15 @@ namespace IntcodeComputer
 {
     public class Computer
     {
-    public int Run(List<int> memory, Queue<int> inputBuffer)
+    public int Run(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
-      ExecuteProgram(memory, inputBuffer);
+      ExecuteProgram(memory, inputBuffer, outputBuffer);
 
       // program execution yields result in address 0
       return memory[0];
     }
 
-    public string Run(string inputFileName, Queue<int> inputBuffer)
+    public string Run(string inputFileName, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       // get code
       var memory = ReadMemoryFromFile(inputFileName);
@@ -22,7 +22,7 @@ namespace IntcodeComputer
       Console.WriteLine($"Initial state: {ConvertMemoryToString(memory)}");
       Console.WriteLine("");
 
-      ExecuteProgram(memory, inputBuffer);
+      ExecuteProgram(memory, inputBuffer, outputBuffer);
       var memoryString = ConvertMemoryToString(memory);
 
       return memoryString;
@@ -53,14 +53,14 @@ namespace IntcodeComputer
     }
 
     // outputs number of steps it's read
-    public void ExecuteProgram(List<int> memory, Queue<int> inputBuffer)
+    public void ExecuteProgram(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       int instructionPointer = 0;
       IInstruction instruction = null;
       do
       {
         instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-        var instructionPointerIncrement = instruction.Execute(memory, inputBuffer);
+        var instructionPointerIncrement = instruction.Execute(memory, inputBuffer, outputBuffer);
         
         instructionPointer += instructionPointerIncrement;
       }

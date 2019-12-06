@@ -20,7 +20,7 @@ namespace IntcodeComputer
       Parameters[2] = new Parameter() { Value = parameter3 };
     }
 
-    public int Execute(List<int> memory, Queue<int> inputBuffer)
+    public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       var valueOfAddress1 = memory[Parameter1.Value];
       var valueOfAddress2 = memory[Parameter2.Value];

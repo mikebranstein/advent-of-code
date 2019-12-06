@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace IntcodeComputer
 {
-  public class InputInstruction : BaseInstruction, IInstruction
+  public class OutputInstruction : BaseInstruction, IInstruction
   {
     public Parameter Parameter1 => Parameters[0];
 
-    public InputInstruction(int opCode, int parameter1)
+    public OutputInstruction(int opCode, int parameter1)
     {
-      base.OpCode = 3;
+      base.OpCode = 4;
       base.PointerAdvancement = 2;
 
       Parameters = new Parameter[1];
@@ -18,11 +18,11 @@ namespace IntcodeComputer
 
     public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
-      // pull value from input buffer
-      var input = inputBuffer.Dequeue();
+      // get value from addrss in parameter 1
+      var output = memory[Parameter1.Value];
 
-      // update address in parameter1
-      memory[Parameter1.Value] = input;
+      // pull value from input buffer
+      outputBuffer.Enqueue(output);
 
       return PointerAdvancement;
     }

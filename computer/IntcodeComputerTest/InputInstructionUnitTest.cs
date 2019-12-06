@@ -51,7 +51,7 @@ namespace IntcodeComputerTest
 
       // act
       var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, inputBuffer);
+      instruction.Execute(memory, inputBuffer, null);
 
       // assert 
       Assert.AreEqual(memory[3], 77);
@@ -71,9 +71,9 @@ namespace IntcodeComputerTest
 
       // act
       var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      var instructionPointerIncrement = instruction.Execute(memory, inputBuffer);
+      var instructionPointerIncrement = instruction.Execute(memory, inputBuffer, null);
       instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, instructionPointerIncrement);
-      instruction.Execute(memory, inputBuffer);
+      instruction.Execute(memory, inputBuffer, null);
 
       // assert
       Assert.AreEqual(memory[3], 5);

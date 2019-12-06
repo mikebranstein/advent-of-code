@@ -13,7 +13,7 @@ namespace IntcodeComputer
       base.Parameters = new Parameter[0];
     }
 
-    public int Execute(List<int> memory, Queue<int> inputBuffer)
+    public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       // do nothing - immediately halt
       return PointerAdvancement;

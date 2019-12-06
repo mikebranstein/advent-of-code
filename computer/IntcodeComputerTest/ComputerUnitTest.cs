@@ -85,7 +85,7 @@ namespace IntmemoryComputerTest
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 1);
@@ -104,7 +104,7 @@ namespace IntmemoryComputerTest
 
       // act - add one
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 1);
@@ -119,7 +119,7 @@ namespace IntmemoryComputerTest
 
       // act - second add
       instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 4);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 1);
@@ -141,7 +141,7 @@ namespace IntmemoryComputerTest
 
       // act
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 2);
@@ -161,7 +161,7 @@ namespace IntmemoryComputerTest
 
       // act - add one
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 2);
@@ -178,7 +178,7 @@ namespace IntmemoryComputerTest
 
       // act - second add
       instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 4);
-      instruction.Execute(memory, null);
+      instruction.Execute(memory, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 2);
@@ -202,7 +202,7 @@ namespace IntmemoryComputerTest
       var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
 
       // act
-      computer.ExecuteProgram(memory, null);
+      computer.ExecuteProgram(memory, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 2);
@@ -228,7 +228,7 @@ namespace IntmemoryComputerTest
       var memory = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
-      computer.ExecuteProgram(memory, null);
+      computer.ExecuteProgram(memory, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 3500);
@@ -255,7 +255,7 @@ namespace IntmemoryComputerTest
       var memory = new List<int> { 1, 0, 0, 0, 99 };
 
       // act
-      computer.ExecuteProgram(memory, null);
+      computer.ExecuteProgram(memory, null, null);
 
       // assert second operation
       // 2,0,0,0,99
@@ -276,7 +276,7 @@ namespace IntmemoryComputerTest
       var memory = new List<int> { 2, 3, 0, 3, 99 };
 
       // act
-      computer.ExecuteProgram(memory, null);
+      computer.ExecuteProgram(memory, null, null);
 
       // assert second operation
       // 2,3,0,6,99
@@ -294,7 +294,7 @@ namespace IntmemoryComputerTest
       var computer = new Computer();
 
       // act
-      var memory = computer.Run("TestFile/small_program_3.txt", null);
+      var memory = computer.Run("TestFile/small_program_3.txt", null, null);
 
       // assert second operation
       // 2,4,4,5,99,9801
@@ -322,7 +322,7 @@ namespace IntmemoryComputerTest
       var computer = new Computer();
 
       // act
-      var memoryString = computer.Run("TestFile/small_program_4.txt", null);
+      var memoryString = computer.Run("TestFile/small_program_4.txt", null, null);
 
       // assert second operation
       // 30,1,1,4,2,5,6,0,99
@@ -339,7 +339,7 @@ namespace IntmemoryComputerTest
           computer.ReadMemoryFromFile("TestFile/output.txt"));
 
       // act
-      var memory = computer.Run("TestFile/input.txt", null);
+      var memory = computer.Run("TestFile/input.txt", null, null);
 
       // assert
       Assert.AreEqual(memory, outputMemoryString);
@@ -355,7 +355,7 @@ namespace IntmemoryComputerTest
           computer.ReadMemoryFromFile("TestFile/output_1202.txt"));
 
       // act
-      var memory = computer.Run("TestFile/input_1202.txt", null);
+      var memory = computer.Run("TestFile/input_1202.txt", null, null);
 
       // assert
       Assert.AreEqual(memory, outputMemoryString);
@@ -370,7 +370,7 @@ namespace IntmemoryComputerTest
 
       // act
       var memory = computer.ReadMemoryFromFile("TestFile/input_1202.txt");
-      var output = computer.Run(memory, null);
+      var output = computer.Run(memory, null, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);
@@ -385,7 +385,7 @@ namespace IntmemoryComputerTest
 
       // act
       var memory = computer.ReadMemoryFromFile("TestFile/input.txt");
-      var output = computer.Run(memory, null);
+      var output = computer.Run(memory, null, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);
@@ -400,7 +400,7 @@ namespace IntmemoryComputerTest
 
       // act
       var memory = computer.ReadMemoryFromFile("TestFile/input_2003.txt");
-      var output = computer.Run(memory, null);
+      var output = computer.Run(memory, null, null);
 
       // assert
       Assert.AreEqual(output, expectedOutput);
