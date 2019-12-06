@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace IntmemoryComputerTest
 {
   [TestClass]
-  public class UnitTest1
+  public class ComputerUnitTest
   {
     [TestMethod]
     public void Can_Ingest_memory_1()

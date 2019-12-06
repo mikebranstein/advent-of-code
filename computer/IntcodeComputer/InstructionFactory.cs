@@ -23,6 +23,11 @@ namespace IntcodeComputer
           memory[instructionPointer + 2],
           memory[instructionPointer + 3]);
 
+      else if (opCode == 3)
+        return new InputInstruction(
+          opCode,
+          memory[instructionPointer + 1]);
+
       else if (opCode == 99) return new HaltInstruction();
 
       throw new Exception($"Invalid OpCode detected: {opCode}");
