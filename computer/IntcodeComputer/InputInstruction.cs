@@ -24,7 +24,7 @@ namespace IntcodeComputer
       // pull value from input buffer
       var input = inputBuffer.Dequeue();
 
-      // update address in parameter1
+      // write to memory - this will NEVER be in immediate mode, so it's always an address 
       memory[Parameter1.Value] = input;
 
       return PointerAdvancement;

@@ -25,13 +25,13 @@ namespace IntcodeComputer
 
     public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
-      var valueOfAddress1 = memory[Parameter1.Value];
-      var valueOfAddress2 = memory[Parameter2.Value];
+      var value1 = GetParameterValue(Parameter1, memory);
+      var value2 = GetParameterValue(Parameter2, memory);
 
-      // addition
-      var result = valueOfAddress1 * valueOfAddress2;
+      // multiply
+      var result = value1 * value2;
 
-      // update code
+      // write to memory - this will NEVER be in immediate mode, so it's always an address
       memory[Parameter3.Value] = result;
 
       // function point advances 4 places

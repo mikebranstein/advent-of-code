@@ -22,7 +22,7 @@ namespace IntcodeComputer
     public int Execute(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
     {
       // get value from addrss in parameter 1
-      var output = memory[Parameter1.Value];
+      var output = GetParameterValue(Parameter1, memory);
 
       // pull value from input buffer
       outputBuffer.Enqueue(output);

@@ -308,7 +308,27 @@ namespace IntcodeComputerTest
       Assert.AreEqual(instruction.PointerAdvancement, 1);
     }
 
+    [TestMethod]
+    public void Writing_Exit_Code_With_Paramater_Modes()
+    {
+      // arrange
+      var computer = new Computer();
+      var memory = new List<int> { 1002, 4, 3, 4, 33 }; 
+      var inputBuffer = new Queue<int>();
+      var outputBuffer = new Queue<int>();
 
+      // act
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      // assert 
+      Assert.AreEqual(memory[0], 1002);
+      Assert.AreEqual(memory[1], 4);
+      Assert.AreEqual(memory[2], 3);
+      Assert.AreEqual(memory[3], 4);
+      Assert.AreEqual(memory[4], 99);
+      Assert.AreEqual(inputBuffer.Count, 0);
+      Assert.AreEqual(outputBuffer.Count, 0);
+    }
 
   }
 }

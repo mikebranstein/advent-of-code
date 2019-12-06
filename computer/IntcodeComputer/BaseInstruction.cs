@@ -8,6 +8,7 @@ namespace IntcodeComputer
     public int OpCode { get; set; }
     public int PointerAdvancement { get; set; }
     public Parameter[] Parameters { get; set; }
+    private List<int> _memory;
 
     protected void CalculateParameterModes(int fullOpCode)
     {
@@ -30,6 +31,15 @@ namespace IntcodeComputer
         // currentDigit hold mode (0 or 1) of the parameter
         Parameters[x - 2].Mode = (ParameterMode)currentDigit;
       }
+    }
+
+    protected int GetParameterValue(Parameter parameter, List<int> memory)
+    {
+      // immediate mode retuns actual parameter value
+      if (parameter.Mode == ParameterMode.ImmediateMode) return parameter.Value;
+
+      // position mode does a memory address lookup to get the value
+      return memory[parameter.Value];
     }
   }
 

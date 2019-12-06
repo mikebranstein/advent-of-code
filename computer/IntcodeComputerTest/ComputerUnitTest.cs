@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntmemoryComputerTest
+namespace IntcodeComputerTest
 {
   [TestClass]
   public class ComputerUnitTest
