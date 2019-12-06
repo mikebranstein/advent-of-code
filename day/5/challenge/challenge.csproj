@@ -5,4 +5,15 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\computer\IntcodeComputer\IntcodeComputer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="input_day_5_part_1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

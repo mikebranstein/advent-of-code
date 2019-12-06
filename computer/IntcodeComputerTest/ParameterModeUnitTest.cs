@@ -330,5 +330,57 @@ namespace IntcodeComputerTest
       Assert.AreEqual(outputBuffer.Count, 0);
     }
 
+    [TestMethod]
+    public void Writing_Exit_Code_With_Paramater_Modes_2()
+    {
+      // arrange
+      var computer = new Computer();
+      var memory = new List<int> { 1101, 100, -1, 4, 0 };
+      var inputBuffer = new Queue<int>();
+      var outputBuffer = new Queue<int>();
+
+      // act
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      // assert 
+      Assert.AreEqual(memory[0], 1101);
+      Assert.AreEqual(memory[1], 100);
+      Assert.AreEqual(memory[2], -1);
+      Assert.AreEqual(memory[3], 4);
+      Assert.AreEqual(memory[4], 99);
+      Assert.AreEqual(inputBuffer.Count, 0);
+      Assert.AreEqual(outputBuffer.Count, 0);
+    }
+
+    [TestMethod]
+    public void TEST_Diagnostics_1()
+    {
+      // arrange
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
+
+      var inputBuffer = new Queue<int>();
+      inputBuffer.Enqueue(1);
+
+      var outputBuffer = new Queue<int>();
+
+      // act
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      // assert
+      Assert.AreEqual(inputBuffer.Count, 0);
+
+      // all outputs should be 0 except for the final output
+      var numOutputs = outputBuffer.Count;
+      for (var x = 0; x < numOutputs - 1; x++)
+      {
+        var diagnosticCodeOutput = outputBuffer.Dequeue();
+        Assert.AreEqual(diagnosticCodeOutput, 0);
+      }
+
+      var finalDiagnosticCodeOutput = outputBuffer.Dequeue();
+      Assert.AreEqual(finalDiagnosticCodeOutput, 12896948);
+      Assert.AreEqual(outputBuffer.Count, 0);
+    }
   }
 }
