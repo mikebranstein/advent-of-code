@@ -37,6 +37,20 @@ namespace test
       Assert.AreEqual(transferCount, expectedTransferCount);
     }
 
+    [TestMethod]
+    public void Part_2_Orbital_test()
+    {
+      // arrange
+      var inputFileName = "TestFiles/input.txt";
+      var expectedTransferCount = 457;
+
+      // act
+      var map = MapFactory.Create(inputFileName);
+      var transferCount = map.GetOrbitalTransferCount("YOU", "SAN");
+
+      // assert
+      Assert.AreEqual(transferCount, expectedTransferCount);
+    }
 
   }
 }
