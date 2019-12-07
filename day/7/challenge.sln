@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{66B2CC09-A4A8-463C-8727-C87ED80363B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amplification", "Amplification\Amplification.csproj", "{338271C6-15AE-4BDB-84B1-D8C337D146FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntcodeComputer", "..\..\computer\IntcodeComputer\IntcodeComputer.csproj", "{ED1FFE1B-85B9-4EF3-AB5C-583CD138A209}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{EE8D7AED-09DF-43B7-A8D9-C310837111DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +19,17 @@ Global
 		{66B2CC09-A4A8-463C-8727-C87ED80363B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B2CC09-A4A8-463C-8727-C87ED80363B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B2CC09-A4A8-463C-8727-C87ED80363B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338271C6-15AE-4BDB-84B1-D8C337D146FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338271C6-15AE-4BDB-84B1-D8C337D146FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338271C6-15AE-4BDB-84B1-D8C337D146FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338271C6-15AE-4BDB-84B1-D8C337D146FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1FFE1B-85B9-4EF3-AB5C-583CD138A209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1FFE1B-85B9-4EF3-AB5C-583CD138A209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1FFE1B-85B9-4EF3-AB5C-583CD138A209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1FFE1B-85B9-4EF3-AB5C-583CD138A209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
