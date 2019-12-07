@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{3CD0B81D-7FBF-4591-86AA-82E0DBE0C703}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{7AD1F00F-9EBE-4283-B492-1C767BC9537C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrbitMap", "OrbitMap\OrbitMap.csproj", "{2AD2875E-4CB5-42D2-B7D3-B172625B9771}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CD0B81D-7FBF-4591-86AA-82E0DBE0C703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD0B81D-7FBF-4591-86AA-82E0DBE0C703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD0B81D-7FBF-4591-86AA-82E0DBE0C703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD0B81D-7FBF-4591-86AA-82E0DBE0C703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD1F00F-9EBE-4283-B492-1C767BC9537C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD1F00F-9EBE-4283-B492-1C767BC9537C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD1F00F-9EBE-4283-B492-1C767BC9537C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD1F00F-9EBE-4283-B492-1C767BC9537C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AD2875E-4CB5-42D2-B7D3-B172625B9771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AD2875E-4CB5-42D2-B7D3-B172625B9771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AD2875E-4CB5-42D2-B7D3-B172625B9771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AD2875E-4CB5-42D2-B7D3-B172625B9771}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
