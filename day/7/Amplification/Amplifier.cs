@@ -6,31 +6,30 @@ namespace Amplification
 {
   public class Amplifier
   {
+    private List<int> _memory;
     private Queue<int> _inputBuffer;
     private Queue<int> _outputBuffer;
     private Computer _computer;
 
-    public Amplifier()
+    public Amplifier(string inputFileName, int phaseSetting)
     {
       _computer = new Computer();
       _inputBuffer = new Queue<int>();
       _outputBuffer = new Queue<int>();
+
+      // initialize memory and phase setting
+      _memory = _computer.ReadMemoryFromFile(inputFileName);
+      _inputBuffer.Enqueue(phaseSetting);
     }
 
-    public int Amplify(string inputFileName, int phaseSetting, int inputSignal)
+    public int Amplify(int inputSignal)
     {
-      var memory = _computer.ReadMemoryFromFile(inputFileName);
-
       // input 1 is the phase setting
       // input 2 is the input signal
-      _inputBuffer.Clear();
-      _inputBuffer.Enqueue(phaseSetting);
       _inputBuffer.Enqueue(inputSignal);
 
-      _outputBuffer.Clear();
-
       // execute program to amplify signal
-      _computer.ExecuteProgram(memory, _inputBuffer, _outputBuffer);
+      _computer.ExecuteProgram(_memory, _inputBuffer, _outputBuffer);
 
       // output is amplified signal
       return _outputBuffer.Dequeue();

@@ -23,6 +23,7 @@
     <None Remove="TestFiles\amplification_program_1.txt" />
     <None Remove="TestFiles\amplification_program_1 %28copy%29.txt" />
     <None Remove="TestFiles\amplification_program_2 %28copy%29.txt" />
+    <None Remove="TestFiles\amplification_program_3 %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\amplification_program_1.txt">
@@ -35,6 +36,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFiles\input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\feedback_program_1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
