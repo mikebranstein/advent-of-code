@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
 
 namespace challenge
@@ -16,10 +18,10 @@ namespace challenge
       //var computer = new Computer();
       //var memory = computer.ReadMemoryFromFile("input.txt");
       //
-      //var inputBuffer = new Queue<int>();
+      //var inputBuffer = new BufferBlock<int>();
       //inputBuffer.Enqueue(1);
       //
-      //var outputBuffer = new Queue<int>();
+      //var outputBuffer = new BufferBlock<int>();
       //
       //computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
       //
@@ -43,10 +45,10 @@ namespace challenge
       var computer = new Computer();
       var memory = computer.ReadMemoryFromFile("input.txt");
 
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(5);
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(5)).Wait();
 
-      var outputBuffer = new Queue<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
 
@@ -54,7 +56,7 @@ namespace challenge
       var numOutputs = outputBuffer.Count;
       for (var x = 0; x < numOutputs; x++)
       {
-        var diagnosticCodeOutput = outputBuffer.Dequeue();
+        var diagnosticCodeOutput = outputBuffer.Receive();
         Console.WriteLine($"Diagnostic code: {diagnosticCodeOutput}");
 
         if (x != numOutputs - 1 && diagnosticCodeOutput != 0)
