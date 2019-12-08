@@ -39,7 +39,7 @@ namespace challenge
           memory[2] = verb;
 
           // run
-          var output = computer.Run(memory);
+          var output = computer.Run(memory, null, null);
 
           if (output == desiredOutput)
           {
