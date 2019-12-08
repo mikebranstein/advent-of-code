@@ -8,7 +8,6 @@ namespace IntcodeComputer
     public int OpCode { get; set; }
     public int PointerAdvancement { get; set; }
     public Parameter[] Parameters { get; set; }
-    private List<int> _memory;
 
     protected void CalculateParameterModes(int fullOpCode)
     {

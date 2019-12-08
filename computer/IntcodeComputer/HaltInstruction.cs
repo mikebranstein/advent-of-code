@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
@@ -13,7 +15,7 @@ namespace IntcodeComputer
       base.Parameters = new Parameter[0];
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // do nothing - immediately halt
     }

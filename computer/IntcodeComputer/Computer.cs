@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
-    public class Computer
-    {
-    public int Run(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
+  public class Computer
+  {
+    public int Run(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       ExecuteProgram(memory, inputBuffer, outputBuffer);
 
@@ -14,7 +17,7 @@ namespace IntcodeComputer
       return memory[0];
     }
 
-    public string Run(string inputFileName, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public string Run(string inputFileName, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // get code
       var memory = ReadMemoryFromFile(inputFileName);
@@ -53,7 +56,7 @@ namespace IntcodeComputer
     }
 
     // outputs number of steps it's read
-    public void ExecuteProgram(List<int> memory, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void ExecuteProgram(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       int instructionPointer = 0;
       IInstruction instruction = null;

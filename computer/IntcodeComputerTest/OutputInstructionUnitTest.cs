@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,8 +47,8 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 4, 3, 99, 67 }; // should write address 3 (67) to output 
-      var inputBuffer = new Queue<int>();
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       var instructionPointer = 0;
@@ -59,7 +60,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[1], 3);
       Assert.AreEqual(memory[2], 99);
       Assert.AreEqual(memory[3], 67);
-      Assert.AreEqual(outputBuffer.Dequeue(), 67);
+      Assert.AreEqual(outputBuffer.Receive(), 67);
     }
 
     [TestMethod]
@@ -70,8 +71,8 @@ namespace IntcodeComputerTest
 
       // should write 88 to last bit
       var memory = new List<int> { 4, 3, 4, 5, 99, 103 };
-      var inputBuffer = new Queue<int>();
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       var instructionPointer = 0;
@@ -87,8 +88,8 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[3], 5);
       Assert.AreEqual(memory[4], 99);
       Assert.AreEqual(memory[5], 103);
-      Assert.AreEqual(outputBuffer.Dequeue(), 5);
-      Assert.AreEqual(outputBuffer.Dequeue(), 103);
+      Assert.AreEqual(outputBuffer.Receive(), 5);
+      Assert.AreEqual(outputBuffer.Receive(), 103);
     }
 
   }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
@@ -23,7 +25,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       var value1 = GetParameterValue(Parameter1, memory);
       var value2 = GetParameterValue(Parameter2, memory);

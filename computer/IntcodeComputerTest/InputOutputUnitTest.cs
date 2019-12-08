@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,9 +16,9 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 3, 5, 4, 5, 99, 0 }; // should read input of 512, write to address 5, then output
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(512);
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(512)).Wait();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -30,7 +32,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[5], 512);
       Assert.AreEqual(inputBuffer.Count, 0);
       Assert.AreEqual(outputBuffer.Count, 1);
-      Assert.AreEqual(outputBuffer.Dequeue(), 512);
+      Assert.AreEqual(outputBuffer.Receive(), 512);
     }
 
     [TestMethod]
@@ -39,9 +41,9 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 1, 4, 10, 5, 3, 0, 2, 0, 2, 13, 4, 13, 99, 0 }; // should output 130 
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(9);
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(9)).Wait();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -63,7 +65,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(memory[13], 130);
       Assert.AreEqual(inputBuffer.Count, 0);
       Assert.AreEqual(outputBuffer.Count, 1);
-      Assert.AreEqual(outputBuffer.Dequeue(), 130);
+      Assert.AreEqual(outputBuffer.Receive(), 130);
     }
 
   }

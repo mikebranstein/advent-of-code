@@ -166,5 +166,49 @@ namespace test
       Assert.AreEqual(output.maxPhaseSettings[3], expectedPhaseSettings[3]);
       Assert.AreEqual(output.maxPhaseSettings[4], expectedPhaseSettings[4]);
     }
+
+    [TestMethod]
+    public void Feedback_Program_2()
+    {
+      // arrange
+      var amplificationTester = new AmplificationTester(CircuitMode.FeedbackLoop);
+
+      var inputFileName = "TestFiles/feedback_program_2.txt";
+      var expectedPhaseSettings = new List<int>() { 9, 7, 8, 5, 6 };
+      var expectedOutputSignal = 18216;
+
+      // act
+      var output = amplificationTester.CalculateMaxOutputSetting(inputFileName);
+
+      // assert
+      Assert.AreEqual(output.maxOutputSetting, expectedOutputSignal);
+      Assert.AreEqual(output.maxPhaseSettings[0], expectedPhaseSettings[0]);
+      Assert.AreEqual(output.maxPhaseSettings[1], expectedPhaseSettings[1]);
+      Assert.AreEqual(output.maxPhaseSettings[2], expectedPhaseSettings[2]);
+      Assert.AreEqual(output.maxPhaseSettings[3], expectedPhaseSettings[3]);
+      Assert.AreEqual(output.maxPhaseSettings[4], expectedPhaseSettings[4]);
+    }
+
+    [TestMethod]
+    public void Feedback_Program_Part_2()
+    {
+      // arrange
+      var amplificationTester = new AmplificationTester(CircuitMode.FeedbackLoop);
+
+      var inputFileName = "TestFiles/input.txt";
+      var expectedPhaseSettings = new List<int>() { 8, 6, 9, 5, 7 };
+      var expectedOutputSignal = 1714298;
+
+      // act
+      var output = amplificationTester.CalculateMaxOutputSetting(inputFileName);
+
+      // assert
+      Assert.AreEqual(output.maxOutputSetting, expectedOutputSignal);
+      Assert.AreEqual(output.maxPhaseSettings[0], expectedPhaseSettings[0]);
+      Assert.AreEqual(output.maxPhaseSettings[1], expectedPhaseSettings[1]);
+      Assert.AreEqual(output.maxPhaseSettings[2], expectedPhaseSettings[2]);
+      Assert.AreEqual(output.maxPhaseSettings[3], expectedPhaseSettings[3]);
+      Assert.AreEqual(output.maxPhaseSettings[4], expectedPhaseSettings[4]);
+    }
   }
 }

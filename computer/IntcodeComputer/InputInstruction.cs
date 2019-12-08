@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
@@ -19,10 +22,11 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // pull value from input buffer
-      var input = inputBuffer.Dequeue();
+      var input = ReceiveAsync(inputBuffer).GetAwaiter().GetResult();
+      //var input = inputBuffer.Dequeue();
 
       // write to memory - this will NEVER be in immediate mode, so it's always an address 
       memory[Parameter1.Value] = input;
@@ -30,5 +34,9 @@ namespace IntcodeComputer
       instructionPointer += PointerAdvancement;
     }
 
+    private async Task<int> ReceiveAsync(BufferBlock<int> inputBuffer)
+    {
+      return await inputBuffer.ReceiveAsync();
+    }
   }
 }

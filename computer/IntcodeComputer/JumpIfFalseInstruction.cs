@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
@@ -21,7 +23,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // if the first parameter is zero, it sets the instruction pointer to the value from the second parameter. Otherwise, it does nothing.
       var booleanValue = GetParameterValue(Parameter1, memory);

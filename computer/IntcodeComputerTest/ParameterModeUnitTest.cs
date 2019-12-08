@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -314,8 +316,8 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 1002, 4, 3, 4, 33 }; 
-      var inputBuffer = new Queue<int>();
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -336,8 +338,8 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 1101, 100, -1, 4, 0 };
-      var inputBuffer = new Queue<int>();
-      var outputBuffer = new Queue<int>();
+      var inputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -359,10 +361,10 @@ namespace IntcodeComputerTest
       var computer = new Computer();
       var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
 
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(1);
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(1)).Wait();
 
-      var outputBuffer = new Queue<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -374,11 +376,11 @@ namespace IntcodeComputerTest
       var numOutputs = outputBuffer.Count;
       for (var x = 0; x < numOutputs - 1; x++)
       {
-        var diagnosticCodeOutput = outputBuffer.Dequeue();
+        var diagnosticCodeOutput = outputBuffer.Receive();
         Assert.AreEqual(diagnosticCodeOutput, 0);
       }
 
-      var finalDiagnosticCodeOutput = outputBuffer.Dequeue();
+      var finalDiagnosticCodeOutput = outputBuffer.Receive();
       Assert.AreEqual(finalDiagnosticCodeOutput, 12896948);
       Assert.AreEqual(outputBuffer.Count, 0);
     }
@@ -390,17 +392,17 @@ namespace IntcodeComputerTest
       var computer = new Computer();
       var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
 
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(5);
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(5)).Wait();
 
-      var outputBuffer = new Queue<int>();
+      var outputBuffer = new BufferBlock<int>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
 
       // assert
       Assert.AreEqual(inputBuffer.Count, 0);
-      Assert.AreEqual(outputBuffer.Dequeue(), 7704130);
+      Assert.AreEqual(outputBuffer.Receive(), 7704130);
       Assert.AreEqual(outputBuffer.Count, 0);
     }
   }

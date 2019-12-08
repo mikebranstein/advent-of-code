@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
@@ -19,16 +22,22 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, Queue<int> inputBuffer, Queue<int> outputBuffer)
+    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // get value from addrss in parameter 1
       var output = GetParameterValue(Parameter1, memory);
 
       // pull value from input buffer
-      outputBuffer.Enqueue(output);
+      SendAsync(outputBuffer, output).Wait();
 
       instructionPointer += PointerAdvancement;
     }
+
+    private async Task SendAsync(BufferBlock<int> outputBuffer, int outputValue)
+    {
+      await outputBuffer.SendAsync(outputValue);
+    }
+
 
   }
 }

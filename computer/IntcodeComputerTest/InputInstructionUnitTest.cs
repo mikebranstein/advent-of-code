@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,8 +48,8 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 3, 3, 99, 0 }; // should write input to address 3
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(77);
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(77)).Wait();
 
       // act
       var instructionPointer = 0;
@@ -66,9 +68,9 @@ namespace IntcodeComputerTest
 
       // should write 88 to last bit
       var memory = new List<int> { 3, 3, 3, 0, 99, 0 }; 
-      var inputBuffer = new Queue<int>();
-      inputBuffer.Enqueue(5);
-      inputBuffer.Enqueue(88);
+      var inputBuffer = new BufferBlock<int>();
+      Task.Run(() => inputBuffer.SendAsync(5)).Wait();
+      Task.Run(() => inputBuffer.SendAsync(88)).Wait();
 
       // act
       var instructionPointer = 0;

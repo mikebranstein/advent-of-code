@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntcodeComputer", "..\..\co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{EE8D7AED-09DF-43B7-A8D9-C310837111DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntcodeComputerTest", "..\..\computer\IntcodeComputerTest\IntcodeComputerTest.csproj", "{34E5E91F-E98C-4B87-8041-05CF42C6A931}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE8D7AED-09DF-43B7-A8D9-C310837111DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34E5E91F-E98C-4B87-8041-05CF42C6A931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34E5E91F-E98C-4B87-8041-05CF42C6A931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34E5E91F-E98C-4B87-8041-05CF42C6A931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34E5E91F-E98C-4B87-8041-05CF42C6A931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
