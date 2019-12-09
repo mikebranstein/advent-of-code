@@ -10,6 +10,7 @@ namespace IntcodeComputer
   public enum ParameterMode
   {
     PositionMode = 0,
-    ImmediateMode = 1
+    ImmediateMode = 1,
+    Relative = 2
   }
 }

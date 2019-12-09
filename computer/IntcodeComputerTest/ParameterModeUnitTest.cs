@@ -405,5 +405,41 @@ namespace IntcodeComputerTest
       Assert.AreEqual(outputBuffer.Receive(), 7704130);
       Assert.AreEqual(outputBuffer.Count, 0);
     }
+
+    [TestMethod]
+    public void Can_Parse_Parameter_Mode_Relative_1()
+    {
+      // arrange
+      var memory = new List<int>() { 204, -34, 99 };
+
+      // act
+      var instruction = (OutputInstruction)InstructionFactory.ParseInstruction(memory, 0);
+
+      // assert 
+      Assert.AreEqual(instruction.OpCode, 4);
+      Assert.AreEqual(instruction.Parameter1.Value, -34);
+      Assert.AreEqual(instruction.Parameter1.Mode, ParameterMode.Relative);
+      Assert.AreEqual(instruction.PointerAdvancement, 2);
+    }
+
+    [TestMethod]
+    public void Can_Parse_Parameter_Mode_Relative_2()
+    {
+      // arrange
+      var memory = new List<int>() { 22201, -34, 12, 0, 99 };
+
+      // act
+      var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
+
+      // assert 
+      Assert.AreEqual(instruction.OpCode, 1);
+      Assert.AreEqual(instruction.Parameter1.Value, -34);
+      Assert.AreEqual(instruction.Parameter1.Mode, ParameterMode.Relative);
+      Assert.AreEqual(instruction.Parameter2.Value, 12);
+      Assert.AreEqual(instruction.Parameter2.Mode, ParameterMode.Relative);
+      Assert.AreEqual(instruction.Parameter3.Value, -0);
+      Assert.AreEqual(instruction.Parameter3.Mode, ParameterMode.Relative);
+      Assert.AreEqual(instruction.PointerAdvancement, 4);
+    }
   }
 }

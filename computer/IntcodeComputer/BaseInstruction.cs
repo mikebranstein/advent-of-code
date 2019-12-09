@@ -27,7 +27,7 @@ namespace IntcodeComputer
         currentDigit = (fullOpCode - runningSum) / power;
         runningSum += currentDigit * power;
 
-        // currentDigit hold mode (0 or 1) of the parameter
+        // currentDigit hold mode (0, 1, or 2) of the parameter
         Parameters[x - 2].Mode = (ParameterMode)currentDigit;
       }
     }
