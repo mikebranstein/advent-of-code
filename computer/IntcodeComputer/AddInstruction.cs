@@ -25,16 +25,16 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
-      var value1 = GetParameterValue(Parameter1, memory);
-      var value2 = GetParameterValue(Parameter2, memory);
+      var value1 = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
+      var value2 = GetParameterValue(Parameter2, memory, virtualMemory, relativeBase);
 
       // addition
       var result = value1 + value2;
 
       // write to memory - this will NEVER be in immediate mode, so it's always an address
-      memory[Parameter3.Value] = result;
+      WriteToMemory(memory, virtualMemory, Parameter3.Value, result);
 
       // function point advances 4 places
       instructionPointer += PointerAdvancement;

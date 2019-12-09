@@ -7,6 +7,6 @@ namespace IntcodeComputer
 {
   public interface IInstruction
   {
-    void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer);
+    void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer);
   }
 }

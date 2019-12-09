@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -9,6 +10,13 @@ namespace IntcodeComputer
 {
   public class Computer
   {
+    private Dictionary<int, int> _virtualMemory;
+
+    public Computer()
+    {
+      _virtualMemory = new Dictionary<int, int>();
+    }
+
     public int Run(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -64,7 +72,7 @@ namespace IntcodeComputer
       do
       {
         instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-        instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
+        instruction.Execute(memory, _virtualMemory, ref instructionPointer, ref relativeBase, inputBuffer, outputBuffer);
       }
       while (instruction.GetType() != typeof(HaltInstruction));
     }

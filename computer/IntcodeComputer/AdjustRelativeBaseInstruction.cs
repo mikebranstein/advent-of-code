@@ -6,13 +6,13 @@ using System.Threading.Tasks.Dataflow;
 
 namespace IntcodeComputer
 {
-  public class OutputInstruction : BaseInstruction, IInstruction
+  public class AdjustRelativeBaseInstruction : BaseInstruction, IInstruction
   {
     public Parameter Parameter1 => Parameters[0];
 
-    public OutputInstruction(int opCode, int parameter1)
+    public AdjustRelativeBaseInstruction(int opCode, int parameter1)
     {
-      base.OpCode = 4;
+      base.OpCode = 9;
       base.PointerAdvancement = 2;
 
       Parameters = new Parameter[1];
@@ -27,17 +27,11 @@ namespace IntcodeComputer
       // get value from addrss in parameter 1
       var output = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
 
-      // pull value from input buffer
-      SendAsync(outputBuffer, output).Wait();
+      // update the relative base
+      relativeBase += output;
 
       instructionPointer += PointerAdvancement;
     }
-
-    private async Task SendAsync(BufferBlock<int> outputBuffer, int outputValue)
-    {
-      await outputBuffer.SendAsync(outputValue);
-    }
-
 
   }
 }

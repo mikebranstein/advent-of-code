@@ -33,6 +33,7 @@
     <None Remove="TestFile\op_1 %28copy%29.txt" />
     <None Remove="TestFile\op_3 %28copy%29.txt" />
     <None Remove="TestFile\input %28copy%29.txt" />
+    <None Remove="TestFile\op_4 %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Update="test_input_1.txt">
@@ -86,6 +87,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFile\input_day_5_part_1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFile\op_9.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

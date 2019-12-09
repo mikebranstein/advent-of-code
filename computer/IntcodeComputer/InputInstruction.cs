@@ -22,14 +22,13 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // pull value from input buffer
       var input = ReceiveAsync(inputBuffer).GetAwaiter().GetResult();
-      //var input = inputBuffer.Dequeue();
 
       // write to memory - this will NEVER be in immediate mode, so it's always an address 
-      memory[Parameter1.Value] = input;
+      WriteToMemory(memory, virtualMemory, Parameter1.Value, input);
 
       instructionPointer += PointerAdvancement;
     }

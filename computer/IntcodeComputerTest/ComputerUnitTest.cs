@@ -82,11 +82,13 @@ namespace IntcodeComputerTest
     {
       // arrange
       var memory = new List<int> { 1, 0, 3, 3, 99 };
+      var virtualMemory = new Dictionary<int, int>();
 
       // act
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 1);
@@ -102,11 +104,13 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
+      var virtualMemory = new Dictionary<int, int>();
 
       // act - add one
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 1);
@@ -121,7 +125,7 @@ namespace IntcodeComputerTest
 
       // act - second add
       instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 1);
@@ -140,11 +144,13 @@ namespace IntcodeComputerTest
     {
       // arrange
       var memory = new List<int> { 2, 0, 3, 5, 99, 0 };
+      var virtualMemory = new Dictionary<int, int>();
 
       // act
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert memory not changed
       Assert.AreEqual(memory[0], 2);
@@ -161,11 +167,13 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
+      var virtualMemory = new Dictionary<int, int>();
 
       // act - add one
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert 
       Assert.AreEqual(memory[0], 2);
@@ -182,7 +190,7 @@ namespace IntcodeComputerTest
 
       // act - second add
       instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, null, null);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, null, null);
 
       // assert second operation
       Assert.AreEqual(memory[0], 2);

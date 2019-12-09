@@ -47,13 +47,15 @@ namespace IntcodeComputerTest
       // arrange
       var computer = new Computer();
       var memory = new List<int> { 4, 3, 99, 67 }; // should write address 3 (67) to output 
+      var virtualMemory = new Dictionary<int, int>();
       var inputBuffer = new BufferBlock<int>();
       var outputBuffer = new BufferBlock<int>();
 
       // act
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, inputBuffer, outputBuffer);
 
       // assert 
       Assert.AreEqual(memory[0], 4);
@@ -71,15 +73,17 @@ namespace IntcodeComputerTest
 
       // should write 88 to last bit
       var memory = new List<int> { 4, 3, 4, 5, 99, 103 };
+      var virtualMemory = new Dictionary<int, int>();
       var inputBuffer = new BufferBlock<int>();
       var outputBuffer = new BufferBlock<int>();
 
       // act
       var instructionPointer = 0;
+      var relativeBase = 0;
       var instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, inputBuffer, outputBuffer);
       instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
-      instruction.Execute(memory, ref instructionPointer, inputBuffer, outputBuffer);
+      instruction.Execute(memory, virtualMemory, ref instructionPointer, ref relativeBase, inputBuffer, outputBuffer);
 
       // assert
       Assert.AreEqual(memory[0], 4);

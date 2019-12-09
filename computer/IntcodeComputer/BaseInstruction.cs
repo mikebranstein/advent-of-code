@@ -8,7 +8,6 @@ namespace IntcodeComputer
     public int OpCode { get; set; }
     public int PointerAdvancement { get; set; }
     public Parameter[] Parameters { get; set; }
-    public int RelativeBase { get; set; }
 
     protected void CalculateParameterModes(int fullOpCode)
     {
@@ -33,17 +32,45 @@ namespace IntcodeComputer
       }
     }
 
-    protected int GetParameterValue(Parameter parameter, List<int> memory)
+    protected int GetParameterValue(Parameter parameter, List<int> memory, Dictionary<int, int> virtualMemory, int relativeBase)
     {
       // immediate mode retuns actual parameter value
       if (parameter.Mode == ParameterMode.ImmediateMode) return parameter.Value;
 
       // position mode does a memory address lookup to get the value
-      else if (parameter.Mode == ParameterMode.PositionMode) return memory[parameter.Value];
+      else if (parameter.Mode == ParameterMode.PositionMode) return ReadFromMemory(memory, virtualMemory, parameter.Value);
 
-      else if (parameter.Mode == ParameterMode.Relative) return memory[RelativeBase + parameter.Value];
+      else if (parameter.Mode == ParameterMode.Relative) return ReadFromMemory(memory, virtualMemory, relativeBase + parameter.Value);
 
       throw new Exception("Invalid parameter mode detected.");
+    }
+
+    protected int ReadFromMemory(List<int> memory, Dictionary<int, int> virtualMemory, int address)
+    {
+      // address is in existing memory range
+      if (address < memory.Count) return memory[address];
+
+      // otherwise it's a virtual memory
+      // check to see if the address exists, if so, return it, if not, initialize to 0 then return
+      if (!virtualMemory.ContainsKey(address)) virtualMemory.Add(address, 0);
+
+      // retrieve value and return
+      int virtualMemoryValue;
+      virtualMemory.TryGetValue(address, out virtualMemoryValue);
+      return virtualMemoryValue; 
+    }
+
+    protected void WriteToMemory(List<int> memory, Dictionary<int, int> virtualMemory, int address, int value)
+    {
+      // address is in existing memory range
+      if (address < memory.Count) memory[address] = value;
+
+      // otherwise it's virtual memory
+      // check to see if the address exists yet, if not, initialize to 0
+      if (!virtualMemory.ContainsKey(address)) virtualMemory.Add(address, 0);
+
+      // now write the value to the address in virtual memory
+      virtualMemory[address] = value;
     }
   }
 

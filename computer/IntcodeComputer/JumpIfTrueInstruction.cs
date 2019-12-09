@@ -23,14 +23,14 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, ref int instructionPointer, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       // if the first parameter is non-zero, it sets the instruction
       // pointer to the value from the second parameter.
       // Otherwise, it does nothing
-      var booleanValue = GetParameterValue(Parameter1, memory);
+      var booleanValue = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
       if (booleanValue != 0)
-        instructionPointer = GetParameterValue(Parameter2, memory);
+        instructionPointer = GetParameterValue(Parameter2, memory, virtualMemory, relativeBase);
       else
         instructionPointer += PointerAdvancement;
     }
