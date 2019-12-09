@@ -8,6 +8,7 @@ namespace IntcodeComputer
     public int OpCode { get; set; }
     public int PointerAdvancement { get; set; }
     public Parameter[] Parameters { get; set; }
+    public int RelativeBase { get; set; }
 
     protected void CalculateParameterModes(int fullOpCode)
     {
@@ -38,7 +39,11 @@ namespace IntcodeComputer
       if (parameter.Mode == ParameterMode.ImmediateMode) return parameter.Value;
 
       // position mode does a memory address lookup to get the value
-      return memory[parameter.Value];
+      else if (parameter.Mode == ParameterMode.PositionMode) return memory[parameter.Value];
+
+      else if (parameter.Mode == ParameterMode.Relative) return memory[RelativeBase + parameter.Value];
+
+      throw new Exception("Invalid parameter mode detected.");
     }
   }
 

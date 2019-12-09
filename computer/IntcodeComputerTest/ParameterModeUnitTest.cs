@@ -441,5 +441,7 @@ namespace IntcodeComputerTest
       Assert.AreEqual(instruction.Parameter3.Mode, ParameterMode.Relative);
       Assert.AreEqual(instruction.PointerAdvancement, 4);
     }
+
+
   }
 }

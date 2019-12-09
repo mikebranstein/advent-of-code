@@ -59,6 +59,7 @@ namespace IntcodeComputer
     public void ExecuteProgram(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
     {
       int instructionPointer = 0;
+      int relativeBase = 0;
       IInstruction instruction = null;
       do
       {
