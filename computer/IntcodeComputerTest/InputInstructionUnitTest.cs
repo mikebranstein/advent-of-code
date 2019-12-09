@@ -47,9 +47,9 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 3, 3, 99, 0 }; // should write input to address 3
-      var virtualMemory = new Dictionary<int, int>();
-      var inputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 3, 3, 99, 0 }; // should write input to address 3
+      var virtualMemory = new Dictionary<int, long>();
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(77)).Wait();
 
       // act
@@ -69,9 +69,9 @@ namespace IntcodeComputerTest
       var computer = new Computer();
 
       // should write 88 to last bit
-      var memory = new List<int> { 3, 3, 3, 0, 99, 0 };
-      var virtualMemory = new Dictionary<int, int>();
-      var inputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 3, 3, 3, 0, 99, 0 };
+      var virtualMemory = new Dictionary<int, long>();
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(5)).Wait();
       Task.Run(() => inputBuffer.SendAsync(88)).Wait();
 

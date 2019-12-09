@@ -10,14 +10,14 @@ namespace IntcodeComputer
 {
   public class Computer
   {
-    private Dictionary<int, int> _virtualMemory;
+    private Dictionary<int, long> _virtualMemory;
 
     public Computer()
     {
-      _virtualMemory = new Dictionary<int, int>();
+      _virtualMemory = new Dictionary<int, long>();
     }
 
-    public int Run(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public long Run(List<long> memory, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       ExecuteProgram(memory, inputBuffer, outputBuffer);
 
@@ -25,7 +25,7 @@ namespace IntcodeComputer
       return memory[0];
     }
 
-    public string Run(string inputFileName, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public string Run(string inputFileName, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // get code
       var memory = ReadMemoryFromFile(inputFileName);
@@ -40,9 +40,9 @@ namespace IntcodeComputer
     }
 
 
-    public List<int> ReadMemoryFromFile(string inputFileName)
+    public List<long> ReadMemoryFromFile(string inputFileName)
     {
-      var memory = new List<int>();
+      var memory = new List<long>();
 
       var fileStream = new FileStream(inputFileName, FileMode.Open);
       using (var streamReader = new StreamReader(fileStream))
@@ -55,7 +55,7 @@ namespace IntcodeComputer
           foreach (var address in memoryArray)
           {
             // convert to integer and add to list
-            memory.Add(int.Parse(address));
+            memory.Add(long.Parse(address));
           }
         }
       }
@@ -64,7 +64,7 @@ namespace IntcodeComputer
     }
 
     // outputs number of steps it's read
-    public void ExecuteProgram(List<int> memory, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void ExecuteProgram(List<long> memory, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       int instructionPointer = 0;
       int relativeBase = 0;
@@ -77,7 +77,7 @@ namespace IntcodeComputer
       while (instruction.GetType() != typeof(HaltInstruction));
     }
 
-    public string ConvertMemoryToString(List<int> code)
+    public string ConvertMemoryToString(List<long> code)
     {
       var codeString = "";
 

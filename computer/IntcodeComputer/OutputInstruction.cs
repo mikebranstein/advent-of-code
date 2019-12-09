@@ -10,7 +10,7 @@ namespace IntcodeComputer
   {
     public Parameter Parameter1 => Parameters[0];
 
-    public OutputInstruction(int opCode, int parameter1)
+    public OutputInstruction(int opCode, long parameter1)
     {
       base.OpCode = 4;
       base.PointerAdvancement = 2;
@@ -22,7 +22,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<long> memory, Dictionary<int, long> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // get value from addrss in parameter 1
       var output = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
@@ -33,7 +33,7 @@ namespace IntcodeComputer
       instructionPointer += PointerAdvancement;
     }
 
-    private async Task SendAsync(BufferBlock<int> outputBuffer, int outputValue)
+    private async Task SendAsync(BufferBlock<long> outputBuffer, long outputValue)
     {
       await outputBuffer.SendAsync(outputValue);
     }

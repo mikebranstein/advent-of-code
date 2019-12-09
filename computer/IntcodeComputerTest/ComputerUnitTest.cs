@@ -81,8 +81,8 @@ namespace IntcodeComputerTest
     public void Can_Process_Operation_1_Add_Simple()
     {
       // arrange
-      var memory = new List<int> { 1, 0, 3, 3, 99 };
-      var virtualMemory = new Dictionary<int, int>();
+      var memory = new List<long> { 1, 0, 3, 3, 99 };
+      var virtualMemory = new Dictionary<int, long>();
 
       // act
       var instructionPointer = 0;
@@ -103,8 +103,8 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
-      var virtualMemory = new Dictionary<int, int>();
+      var memory = new List<long> { 1, 3, 2, 5, 1, 0, 0, 1, 99 };
+      var virtualMemory = new Dictionary<int, long>();
 
       // act - add one
       var instructionPointer = 0;
@@ -143,8 +143,8 @@ namespace IntcodeComputerTest
     public void Can_Process_Operation_2_Multiply_Simple()
     {
       // arrange
-      var memory = new List<int> { 2, 0, 3, 5, 99, 0 };
-      var virtualMemory = new Dictionary<int, int>();
+      var memory = new List<long> { 2, 0, 3, 5, 99, 0 };
+      var virtualMemory = new Dictionary<int, long>();
 
       // act
       var instructionPointer = 0;
@@ -166,8 +166,8 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
-      var virtualMemory = new Dictionary<int, int>();
+      var memory = new List<long> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30};
+      var virtualMemory = new Dictionary<int, long>();
 
       // act - add one
       var instructionPointer = 0;
@@ -211,7 +211,7 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
+      var memory = new List<long> { 2, 3, 2, 5, 2, 0, 0, 1, 99, 20, 30 };
 
       // act
       computer.ExecuteProgram(memory, null, null);
@@ -237,7 +237,7 @@ namespace IntcodeComputerTest
 
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
+      var memory = new List<long> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
       computer.ExecuteProgram(memory, null, null);
@@ -264,7 +264,7 @@ namespace IntcodeComputerTest
 
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1, 0, 0, 0, 99 };
+      var memory = new List<long> { 1, 0, 0, 0, 99 };
 
       // act
       computer.ExecuteProgram(memory, null, null);
@@ -285,7 +285,7 @@ namespace IntcodeComputerTest
 
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 2, 3, 0, 3, 99 };
+      var memory = new List<long> { 2, 3, 0, 3, 99 };
 
       // act
       computer.ExecuteProgram(memory, null, null);
@@ -318,7 +318,7 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
+      var memory = new List<long> { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
 
       // act
       var memoryString = computer.ConvertMemoryToString(memory);

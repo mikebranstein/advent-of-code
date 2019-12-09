@@ -46,10 +46,10 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 4, 3, 99, 67 }; // should write address 3 (67) to output 
-      var virtualMemory = new Dictionary<int, int>();
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 4, 3, 99, 67 }; // should write address 3 (67) to output 
+      var virtualMemory = new Dictionary<int, long>();
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       var instructionPointer = 0;
@@ -72,10 +72,10 @@ namespace IntcodeComputerTest
       var computer = new Computer();
 
       // should write 88 to last bit
-      var memory = new List<int> { 4, 3, 4, 5, 99, 103 };
-      var virtualMemory = new Dictionary<int, int>();
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 4, 3, 4, 5, 99, 103 };
+      var virtualMemory = new Dictionary<int, long>();
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       var instructionPointer = 0;

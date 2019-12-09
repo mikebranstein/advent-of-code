@@ -10,7 +10,7 @@ namespace IntcodeComputer
   {
     public Parameter Parameter1 => Parameters[0];
 
-    public AdjustRelativeBaseInstruction(int opCode, int parameter1)
+    public AdjustRelativeBaseInstruction(int opCode, long parameter1)
     {
       base.OpCode = 9;
       base.PointerAdvancement = 2;
@@ -22,13 +22,13 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<long> memory, Dictionary<int, long> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // get value from addrss in parameter 1
       var output = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
 
       // update the relative base
-      relativeBase += output;
+      relativeBase += (int)output;
 
       instructionPointer += PointerAdvancement;
     }

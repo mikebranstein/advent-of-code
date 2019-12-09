@@ -5,9 +5,9 @@ namespace IntcodeComputer
 {
   public static class InstructionFactory
   {
-    public static IInstruction ParseInstruction(List<int> memory, int instructionPointer)
+    public static IInstruction ParseInstruction(List<long> memory, int instructionPointer)
     {
-      var opCode = memory[instructionPointer];
+      var opCode = (int)memory[instructionPointer];
       var opCodeString = opCode.ToString().PadLeft(2); // 2-digit op codes
       var baseOpCode = int.Parse(opCodeString.Replace(' ', '0').Substring(opCodeString.Length - 2));
 

@@ -15,7 +15,7 @@ namespace IntcodeComputer
       base.Parameters = new Parameter[0];
     }
 
-    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<long> memory, Dictionary<int, long> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // do nothing - immediately halt
     }

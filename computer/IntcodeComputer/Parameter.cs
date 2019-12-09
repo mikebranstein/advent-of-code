@@ -3,7 +3,7 @@ namespace IntcodeComputer
 {
   public class Parameter
   {
-    public int Value { get; set; }
+    public long Value { get; set; }
     public ParameterMode Mode { get; set; }
   }
 

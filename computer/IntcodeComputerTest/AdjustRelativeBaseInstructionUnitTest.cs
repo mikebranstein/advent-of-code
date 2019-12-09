@@ -33,10 +33,10 @@ namespace IntcodeComputerTest
       var computer = new Computer();
 
       // should write 88 to last bit
-      var memory = new List<int> { 109, 19, 99 };
-      var virtualMemory = new Dictionary<int, int>();
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 109, 19, 99 };
+      var virtualMemory = new Dictionary<int, long>();
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
       var instructionPointer = 0;
       var relativeBase = 2000;
 
@@ -54,9 +54,9 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99 };
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99 };
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       

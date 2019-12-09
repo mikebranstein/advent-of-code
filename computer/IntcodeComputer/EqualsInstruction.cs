@@ -11,7 +11,7 @@ namespace IntcodeComputer
     public Parameter Parameter2 => Parameters[1];
     public Parameter Parameter3 => Parameters[2];
 
-    public EqualsInstruction(int opCode, int parameter1, int parameter2, int parameter3)
+    public EqualsInstruction(int opCode, long parameter1, long parameter2, long parameter3)
     {
       base.OpCode = 8;
       base.PointerAdvancement = 4;
@@ -25,7 +25,7 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<long> memory, Dictionary<int, long> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // if the first parameter is equal to the second parameter,
       // it stores 1 in the position given by the third parameter.
@@ -37,9 +37,9 @@ namespace IntcodeComputer
       if (value1 == value2)
       {
         // write to memory - this will NEVER be in immediate mode, so it's always an address
-        WriteToMemory(memory, virtualMemory, Parameter3.Value, 1);
+        WriteToMemory(memory, virtualMemory, (int)Parameter3.Value, 1);
       }
-      else WriteToMemory(memory, virtualMemory, Parameter3.Value, 0);
+      else WriteToMemory(memory, virtualMemory, (int)Parameter3.Value, 0);
 
       // function point advances 4 places
       instructionPointer += PointerAdvancement;

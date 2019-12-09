@@ -10,7 +10,7 @@ namespace IntcodeComputer
     public Parameter Parameter1 => Parameters[0];
     public Parameter Parameter2 => Parameters[1];
 
-    public JumpIfTrueInstruction(int opCode, int parameter1, int parameter2)
+    public JumpIfTrueInstruction(int opCode, long parameter1, long parameter2)
     {
       base.OpCode = 5;
       base.PointerAdvancement = 3;
@@ -23,14 +23,14 @@ namespace IntcodeComputer
       CalculateParameterModes(opCode);
     }
 
-    public void Execute(List<int> memory, Dictionary<int, int> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<int> inputBuffer, BufferBlock<int> outputBuffer)
+    public void Execute(List<long> memory, Dictionary<int, long> virtualMemory, ref int instructionPointer, ref int relativeBase, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
     {
       // if the first parameter is non-zero, it sets the instruction
       // pointer to the value from the second parameter.
       // Otherwise, it does nothing
       var booleanValue = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
       if (booleanValue != 0)
-        instructionPointer = GetParameterValue(Parameter2, memory, virtualMemory, relativeBase);
+        instructionPointer = (int)GetParameterValue(Parameter2, memory, virtualMemory, relativeBase);
       else
         instructionPointer += PointerAdvancement;
     }

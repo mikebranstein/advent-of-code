@@ -14,7 +14,7 @@ namespace IntcodeComputerTest
     public void Can_Identify_Long_OpCodes_Add()
     {
       // arrange
-      var memory = new List<int>() { 01101, 0, 2, 3, 99 };
+      var memory = new List<long>() { 01101, 0, 2, 3, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -31,7 +31,7 @@ namespace IntcodeComputerTest
     public void Can_Identify_Long_OpCodes_Multiply()
     {
       // arrange
-      var memory = new List<int>() { 01102, 0, 2, 3, 99 };
+      var memory = new List<long>() { 01102, 0, 2, 3, 99 };
 
       // act
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -48,7 +48,7 @@ namespace IntcodeComputerTest
     public void Can_Identify_Long_OpCodes_Input()
     {
       // arrange
-      var memory = new List<int>() { 01103, 0, 99 };
+      var memory = new List<long>() { 01103, 0, 99 };
 
       // act
       var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -63,7 +63,7 @@ namespace IntcodeComputerTest
     public void Can_Identify_Long_OpCodes_Output()
     {
       // arrange
-      var memory = new List<int>() { 01104, 0, 99 };
+      var memory = new List<long>() { 01104, 0, 99 };
 
       // act
       var instruction = (OutputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -79,7 +79,7 @@ namespace IntcodeComputerTest
     public void Can_Identify_Long_OpCodes_Halt()
     {
       // arrange
-      var memory = new List<int>() { 99 };
+      var memory = new List<long>() { 99 };
 
       // act
       var instruction = (HaltInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -95,7 +95,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Add_1()
     {
       // arrange
-      var memory = new List<int>() { 01101, 0, 2, 3, 99 };
+      var memory = new List<long>() { 01101, 0, 2, 3, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -115,7 +115,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Add_2()
     {
       // arrange
-      var memory = new List<int>() { 101, 0, 2, 3, 99 };
+      var memory = new List<long>() { 101, 0, 2, 3, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -135,7 +135,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Add_3()
     {
       // arrange
-      var memory = new List<int>() { 1, 0, 2, 3, 99 };
+      var memory = new List<long>() { 1, 0, 2, 3, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -155,7 +155,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Add_4()
     {
       // arrange
-      var memory = new List<int>() { 10001, 0, 2, 3, 99 };
+      var memory = new List<long>() { 10001, 0, 2, 3, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -175,7 +175,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Multiply_1()
     {
       // arrange
-      var memory = new List<int>() { 01102, 0, 2, 3, 99 };
+      var memory = new List<long>() { 01102, 0, 2, 3, 99 };
 
       // act
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -195,7 +195,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Multiply_2()
     {
       // arrange
-      var memory = new List<int>() { 2, 0, 2, 3, 99 };
+      var memory = new List<long>() { 2, 0, 2, 3, 99 };
 
       // act
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -215,7 +215,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Multiply_3()
     {
       // arrange
-      var memory = new List<int>() { 1102, 0, 2, 3, 99 };
+      var memory = new List<long>() { 1102, 0, 2, 3, 99 };
 
       // act
       var instruction = (MultiplyInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -235,7 +235,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Input_1()
     {
       // arrange
-      var memory = new List<int>() { 103, 0, 99 };
+      var memory = new List<long>() { 103, 0, 99 };
 
       // act
       var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -251,7 +251,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Input_2()
     {
       // arrange
-      var memory = new List<int>() { 003, 0, 99 };
+      var memory = new List<long>() { 003, 0, 99 };
 
       // act
       var instruction = (InputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -267,7 +267,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Output_1()
     {
       // arrange
-      var memory = new List<int>() { 104, 0, 99 };
+      var memory = new List<long>() { 104, 0, 99 };
 
       // act
       var instruction = (OutputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -283,7 +283,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Output_2()
     {
       // arrange
-      var memory = new List<int>() { 004, 0, 99 };
+      var memory = new List<long>() { 004, 0, 99 };
 
       // act
       var instruction = (OutputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -300,7 +300,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Halt_1()
     {
       // arrange
-      var memory = new List<int>() { 99 };
+      var memory = new List<long>() { 99 };
 
       // act
       var instruction = (HaltInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -315,9 +315,9 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1002, 4, 3, 4, 33 }; 
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 1002, 4, 3, 4, 33 }; 
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -337,9 +337,9 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1101, 100, -1, 4, 0 };
-      var inputBuffer = new BufferBlock<int>();
-      var outputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 1101, 100, -1, 4, 0 };
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -361,10 +361,10 @@ namespace IntcodeComputerTest
       var computer = new Computer();
       var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
 
-      var inputBuffer = new BufferBlock<int>();
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(1)).Wait();
 
-      var outputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -392,10 +392,10 @@ namespace IntcodeComputerTest
       var computer = new Computer();
       var memory = computer.ReadMemoryFromFile("TestFile/input_day_5_part_1.txt");
 
-      var inputBuffer = new BufferBlock<int>();
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(5)).Wait();
 
-      var outputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -410,7 +410,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Relative_1()
     {
       // arrange
-      var memory = new List<int>() { 204, -34, 99 };
+      var memory = new List<long>() { 204, -34, 99 };
 
       // act
       var instruction = (OutputInstruction)InstructionFactory.ParseInstruction(memory, 0);
@@ -426,7 +426,7 @@ namespace IntcodeComputerTest
     public void Can_Parse_Parameter_Mode_Relative_2()
     {
       // arrange
-      var memory = new List<int>() { 22201, -34, 12, 0, 99 };
+      var memory = new List<long>() { 22201, -34, 12, 0, 99 };
 
       // act
       var instruction = (AddInstruction)InstructionFactory.ParseInstruction(memory, 0);

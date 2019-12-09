@@ -32,20 +32,20 @@ namespace IntcodeComputer
       }
     }
 
-    protected int GetParameterValue(Parameter parameter, List<int> memory, Dictionary<int, int> virtualMemory, int relativeBase)
+    protected long GetParameterValue(Parameter parameter, List<long> memory, Dictionary<int, long> virtualMemory, int relativeBase)
     {
       // immediate mode retuns actual parameter value
       if (parameter.Mode == ParameterMode.ImmediateMode) return parameter.Value;
 
       // position mode does a memory address lookup to get the value
-      else if (parameter.Mode == ParameterMode.PositionMode) return ReadFromMemory(memory, virtualMemory, parameter.Value);
+      else if (parameter.Mode == ParameterMode.PositionMode) return ReadFromMemory(memory, virtualMemory, (int)parameter.Value);
 
-      else if (parameter.Mode == ParameterMode.Relative) return ReadFromMemory(memory, virtualMemory, relativeBase + parameter.Value);
+      else if (parameter.Mode == ParameterMode.Relative) return ReadFromMemory(memory, virtualMemory, relativeBase + (int)parameter.Value);
 
       throw new Exception("Invalid parameter mode detected.");
     }
 
-    protected int ReadFromMemory(List<int> memory, Dictionary<int, int> virtualMemory, int address)
+    protected long ReadFromMemory(List<long> memory, Dictionary<int, long> virtualMemory, int address)
     {
       // address is in existing memory range
       if (address < memory.Count) return memory[address];
@@ -55,12 +55,12 @@ namespace IntcodeComputer
       if (!virtualMemory.ContainsKey(address)) virtualMemory.Add(address, 0);
 
       // retrieve value and return
-      int virtualMemoryValue;
+      long virtualMemoryValue;
       virtualMemory.TryGetValue(address, out virtualMemoryValue);
       return virtualMemoryValue; 
     }
 
-    protected void WriteToMemory(List<int> memory, Dictionary<int, int> virtualMemory, int address, int value)
+    protected void WriteToMemory(List<long> memory, Dictionary<int, long> virtualMemory, int address, long value)
     {
       // address is in existing memory range
       if (address < memory.Count) memory[address] = value;

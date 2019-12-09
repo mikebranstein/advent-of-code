@@ -15,10 +15,10 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 3, 5, 4, 5, 99, 0 }; // should read input of 512, write to address 5, then output
-      var inputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 3, 5, 4, 5, 99, 0 }; // should read input of 512, write to address 5, then output
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(512)).Wait();
-      var outputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
@@ -40,10 +40,10 @@ namespace IntcodeComputerTest
     {
       // arrange
       var computer = new Computer();
-      var memory = new List<int> { 1, 4, 10, 5, 3, 0, 2, 0, 2, 13, 4, 13, 99, 0 }; // should output 130 
-      var inputBuffer = new BufferBlock<int>();
+      var memory = new List<long> { 1, 4, 10, 5, 3, 0, 2, 0, 2, 13, 4, 13, 99, 0 }; // should output 130 
+      var inputBuffer = new BufferBlock<long>();
       Task.Run(() => inputBuffer.SendAsync(9)).Wait();
-      var outputBuffer = new BufferBlock<int>();
+      var outputBuffer = new BufferBlock<long>();
 
       // act
       computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
