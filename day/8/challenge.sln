@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{4789B1C9-1840-47F0-AE4A-F02538A51A9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceImageFormat", "SpaceImageFormat\SpaceImageFormat.csproj", "{1E1E83CE-011B-427C-8E0F-251042349B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceImageFormatTest", "SpaceImageFormatTest\SpaceImageFormatTest.csproj", "{9571655A-BC01-4D32-AE3B-E6AA1F2EF13B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4789B1C9-1840-47F0-AE4A-F02538A51A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4789B1C9-1840-47F0-AE4A-F02538A51A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4789B1C9-1840-47F0-AE4A-F02538A51A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4789B1C9-1840-47F0-AE4A-F02538A51A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1E83CE-011B-427C-8E0F-251042349B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1E83CE-011B-427C-8E0F-251042349B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1E83CE-011B-427C-8E0F-251042349B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1E83CE-011B-427C-8E0F-251042349B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9571655A-BC01-4D32-AE3B-E6AA1F2EF13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9571655A-BC01-4D32-AE3B-E6AA1F2EF13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9571655A-BC01-4D32-AE3B-E6AA1F2EF13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9571655A-BC01-4D32-AE3B-E6AA1F2EF13B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
