@@ -9,7 +9,7 @@ namespace challenge
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("Running BOOST program...");
+      Console.WriteLine("Running BOOST Test Mode program...");
 
       // The BOOST program will ask for a single input; run it in test
       // mode by providing it the value 1. It will perform a series of
@@ -33,10 +33,12 @@ namespace challenge
       var outputBufferCount = outputBuffer.Count;
       for (var i = 0; i < outputBufferCount; i++)
       {
-        Console.WriteLine($"BOOST output: {outputBuffer.Receive()}");
+        Console.WriteLine($"BOOST Test Mode output: {outputBuffer.Receive()}");
       }
 
-      Console.WriteLine("BOOST program finished...");
+      Console.WriteLine("BOOST Test Mode program finished...");
+
+
       Console.ReadLine();
     }
   }
