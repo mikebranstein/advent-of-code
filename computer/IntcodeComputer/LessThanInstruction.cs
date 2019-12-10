@@ -33,13 +33,14 @@ namespace IntcodeComputer
 
       var value1 = GetParameterValue(Parameter1, memory, virtualMemory, relativeBase);
       var value2 = GetParameterValue(Parameter2, memory, virtualMemory, relativeBase);
+      var writeToAddress = ConvertWriteToAddress(Parameter3, relativeBase);
 
       if (value1 < value2)
       {
         // write to memory - this will NEVER be in immediate mode, so it's always an address
-        WriteToMemory(memory, virtualMemory, (int)Parameter3.Value, 1);
+        WriteToMemory(memory, virtualMemory, (int)writeToAddress, 1);
       }
-      else WriteToMemory(memory, virtualMemory, (int)Parameter3.Value, 0);
+      else WriteToMemory(memory, virtualMemory, (int)writeToAddress, 0);
 
       // function point advances 4 places
       instructionPointer += PointerAdvancement;

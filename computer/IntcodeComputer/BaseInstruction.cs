@@ -45,6 +45,15 @@ namespace IntcodeComputer
       throw new Exception("Invalid parameter mode detected.");
     }
 
+    protected long ConvertWriteToAddress(Parameter parameter, int relativeBase)
+    {
+      if (parameter.Mode == ParameterMode.PositionMode) return parameter.Value;
+      else if (parameter.Mode == ParameterMode.Relative) return relativeBase + parameter.Value;
+
+      // write-to addresses will never be immediate
+      throw new Exception("Invalid parameter mode detected.");
+    }
+
     protected long ReadFromMemory(List<long> memory, Dictionary<int, long> virtualMemory, int address)
     {
       // address is in existing memory range

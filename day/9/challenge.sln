@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntcodeComputerTest", "..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{3DDF64EB-7616-43FA-B470-353DA7C2E3EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{FAC86705-25F7-4BD4-8BF2-51C3DFDA67D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +27,9 @@ Global
 		{3DDF64EB-7616-43FA-B470-353DA7C2E3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DDF64EB-7616-43FA-B470-353DA7C2E3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DDF64EB-7616-43FA-B470-353DA7C2E3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC86705-25F7-4BD4-8BF2-51C3DFDA67D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC86705-25F7-4BD4-8BF2-51C3DFDA67D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC86705-25F7-4BD4-8BF2-51C3DFDA67D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC86705-25F7-4BD4-8BF2-51C3DFDA67D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

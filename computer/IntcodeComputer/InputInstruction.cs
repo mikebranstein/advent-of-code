@@ -27,8 +27,9 @@ namespace IntcodeComputer
       // pull value from input buffer
       var input = ReceiveAsync(inputBuffer).GetAwaiter().GetResult();
 
-      // write to memory - this will NEVER be in immediate mode, so it's always an address 
-      WriteToMemory(memory, virtualMemory, (int)Parameter1.Value, input);
+      // write to memory - this will NEVER be in immediate mode, so it's always an address
+      var writeToAddress = ConvertWriteToAddress(Parameter1, relativeBase);
+      WriteToMemory(memory, virtualMemory, (int)writeToAddress, input);
 
       instructionPointer += PointerAdvancement;
     }

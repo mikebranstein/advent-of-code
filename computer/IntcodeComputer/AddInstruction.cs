@@ -33,8 +33,9 @@ namespace IntcodeComputer
       // addition
       var result = value1 + value2;
 
-      // write to memory - this will NEVER be in immediate mode, so it's always an address
-      WriteToMemory(memory, virtualMemory, (int)Parameter3.Value, result);
+      // write to memory 
+      var writeToAddress = ConvertWriteToAddress(Parameter3, relativeBase);
+      WriteToMemory(memory, virtualMemory, (int)writeToAddress, result);
 
       // function point advances 4 places
       instructionPointer += PointerAdvancement;
