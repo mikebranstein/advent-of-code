@@ -26,5 +26,24 @@ namespace test
       Assert.AreEqual(outputBuffer.Count, 1);
       Assert.AreEqual(outputBuffer.Receive(), 4261108180);
     }
+
+    [TestMethod]
+    public void Part_2()
+    {
+      // arrange
+      var computer = new Computer();
+      var memory = computer.ReadMemoryFromFile("TestFiles/input.txt");
+      var inputBuffer = new BufferBlock<long>();
+      var outputBuffer = new BufferBlock<long>();
+
+      Task.Run(() => inputBuffer.SendAsync(2)).Wait();
+
+      // act
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      // assert
+      Assert.AreEqual(outputBuffer.Count, 1);
+      Assert.AreEqual(outputBuffer.Receive(), 77944);
+    }
   }
 }

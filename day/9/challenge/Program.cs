@@ -39,6 +39,36 @@ namespace challenge
       Console.WriteLine("BOOST Test Mode program finished...");
 
 
+
+      // Part 2
+      // Finally, you can lock on to the Ceres distress signal! You just need
+      // to boost your sensors using the BOOST program.
+      //
+      // The program runs in sensor boost mode by providing the input
+      // instruction the value 2.Once run, it will boost the sensors
+      // automatically, but it might take a few seconds to complete the
+      // operation on slower hardware.In sensor boost mode, the program
+      // will output a single value: the coordinates of the distress signal.
+
+      Console.WriteLine("Running BOOST Sensor Boost Mode program...");
+
+      computer = new Computer();
+      memory = computer.ReadMemoryFromFile("input.txt");
+      inputBuffer = new BufferBlock<long>();
+      outputBuffer = new BufferBlock<long>();
+
+      Task.Run(() => inputBuffer.SendAsync(2)).Wait();
+
+      computer.ExecuteProgram(memory, inputBuffer, outputBuffer);
+
+      outputBufferCount = outputBuffer.Count;
+      for (var i = 0; i < outputBufferCount; i++)
+      {
+        Console.WriteLine($"BOOST Sensor Boost Mode output: {outputBuffer.Receive()}");
+      }
+
+      Console.WriteLine("BOOST Sensor Boost Mode program finished...");
+
       Console.ReadLine();
     }
   }
