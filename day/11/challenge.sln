@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge", "challenge\challenge.csproj", "{22702495-598E-46C6-968B-D1BC73521CEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntcodeComputer", "..\..\computer\IntcodeComputer\IntcodeComputer.csproj", "{B17D16A9-325A-4CB5-97BC-749C8E6F36A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullPainting", "HullPainting\HullPainting.csproj", "{CBF87351-F3C3-465A-A5DA-94AD784D320F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22702495-598E-46C6-968B-D1BC73521CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22702495-598E-46C6-968B-D1BC73521CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22702495-598E-46C6-968B-D1BC73521CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22702495-598E-46C6-968B-D1BC73521CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17D16A9-325A-4CB5-97BC-749C8E6F36A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17D16A9-325A-4CB5-97BC-749C8E6F36A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17D16A9-325A-4CB5-97BC-749C8E6F36A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17D16A9-325A-4CB5-97BC-749C8E6F36A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF87351-F3C3-465A-A5DA-94AD784D320F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF87351-F3C3-465A-A5DA-94AD784D320F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF87351-F3C3-465A-A5DA-94AD784D320F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF87351-F3C3-465A-A5DA-94AD784D320F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
