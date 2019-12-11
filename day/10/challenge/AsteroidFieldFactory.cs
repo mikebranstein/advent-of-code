@@ -11,7 +11,7 @@ namespace challenge
     {
       var width = 0;
       var height = 0;
-      var mapList = new List<bool[]>();
+      var map = new List<Coordinate>();
 
       var fileStream = new FileStream(inputFileName, FileMode.Open);
       using (var streamReader = new StreamReader(fileStream))
@@ -21,26 +21,16 @@ namespace challenge
           var mapLine = streamReader.ReadLine();
           width = mapLine.Length;
 
-          var line = new bool[width];
           for (var i = 0; i < width; i++)
           {
-            line[i] = mapLine[i] == '#';
+            if (mapLine[i] == '#')
+              map.Add(new Coordinate(i, height));
           }
 
-          mapList.Add(line);
           height++;
         }
 
-        var map = new bool[width, height];
-        for (var h = 0; h < height; h++)
-        {
-          for (var w = 0; w < width; w++)
-          {
-            map[w, h] = mapList[h][w];
-          }
-        }
-
-        return new AsteroidField(map);
+        return new AsteroidField(map, width, height);
       }
     }
   }
