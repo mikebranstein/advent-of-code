@@ -22,12 +22,32 @@
   <ItemGroup>
     <None Remove="TestFiles\test_1.txt" />
     <None Remove="TestFiles\test_1 %28copy%29.txt" />
+    <None Remove="TestFiles\test_2 %28copy%29.txt" />
+    <None Remove="TestFiles\test_3 %28copy%29.txt" />
+    <None Remove="TestFiles\test_3 %28another copy%29.txt" />
+    <None Remove="TestFiles\test_5 %28copy%29.txt" />
+    <None Remove="TestFiles\input.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\test_1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFiles\test_2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\test_3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\test_5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\test_4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\test_6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

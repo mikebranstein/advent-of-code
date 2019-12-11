@@ -2,11 +2,23 @@
 
 namespace challenge
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+      // part 1
+      Console.WriteLine("Finding best viewing location in asteroid field...");
+
+      var inputFileName = "input.txt";
+
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      Console.WriteLine($"Best viewing location: ({coordinate.X}, {coordinate.Y}), asteroid count: {asteroidCount}");
+      Console.WriteLine("Finished.");
+
+      Console.ReadLine();
     }
+  }
 }

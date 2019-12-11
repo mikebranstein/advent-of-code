@@ -32,6 +32,24 @@ namespace challenge
       GeneratePossibleAsteroidPoints();
     }
 
+    public Coordinate FindBestViewingLocation()
+    {
+      Coordinate bestCoordinate = null;
+      var bestAsteroidCount = int.MinValue;
+
+      foreach (var coordinate in _map)
+      {
+        var currentAsteroidCount = NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+        if (currentAsteroidCount > bestAsteroidCount)
+        {
+          bestAsteroidCount = currentAsteroidCount;
+          bestCoordinate = coordinate; 
+        }
+      }
+
+      return bestCoordinate;
+    }
+
     public int NumAsteroidsInDirectSight(int originX, int originY)
     {
       var q1Count = NumAsteroidsInDirectSight(_quadrant1Points, originX, originY);
@@ -49,11 +67,12 @@ namespace challenge
 
       foreach (var slope in quadrant.Keys)
       {
-        var lineOfSightCoordinates = quadrant[slope].ToArray();
+        // deep copy coordinates to adjsut x,y values on the fly
+        // due toorigin translation
+        var lineOfSightCoordinates = new Coordinate[quadrant[slope].Count];
         for (var i = 0; i < lineOfSightCoordinates.Length; i++)
         {
-          lineOfSightCoordinates[i].X += originX;
-          lineOfSightCoordinates[i].Y += originY;
+          lineOfSightCoordinates[i] = new Coordinate(quadrant[slope][i].X + originX, quadrant[slope][i].Y + originY);
         }
 
         if (lineOfSightCoordinates.Intersect(_map.ToArray()).Any()) asteroidCount++;

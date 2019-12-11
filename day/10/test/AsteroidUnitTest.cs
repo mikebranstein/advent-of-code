@@ -313,5 +313,143 @@ namespace test
       Assert.AreEqual(asteroidCount, expectedAsteroidCount);
     }
 
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_test_1()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_1.txt";
+      var expectedCoordinate = new Coordinate(3, 4);
+      var expectedAsteroidCount = 8;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_test_3()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_3.txt";
+      var expectedCoordinate = new Coordinate(5, 8);
+      var expectedAsteroidCount = 33;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_test_4()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_4.txt";
+      var expectedCoordinate = new Coordinate(1, 2);
+      var expectedAsteroidCount = 35;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_test_5()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_5.txt";
+      var expectedCoordinate = new Coordinate(6, 3);
+      var expectedAsteroidCount = 41;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_test_6()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_6.txt";
+      var expectedCoordinate = new Coordinate(11, 13);
+      var expectedAsteroidCount = 210;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
+
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_part_1()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/input.txt";
+      var expectedCoordinate = new Coordinate(20, 21);
+      var expectedAsteroidCount = 247;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var coordinate = asteroidField.FindBestViewingLocation();
+      var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
+
+      // assert
+      Assert.AreEqual(coordinate, expectedCoordinate);
+      Assert.AreEqual(asteroidCount, expectedAsteroidCount);
+    }
   }
 }
