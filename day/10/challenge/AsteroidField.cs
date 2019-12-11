@@ -32,6 +32,88 @@ namespace challenge
       GeneratePossibleAsteroidPoints();
     }
 
+    public List<Coordinate> GetDestructionOrder(int originX, int originY)
+    {
+      // get intersecting
+      var asteroids = GetListOfIntersectingAsteroids(originX, originY);
+
+      // get degrees from direction UP, which is tangent of (deltaY / deltaX)
+      // but remember our X,Y coordinates need translated
+      var degreesLookup = new Dictionary<double, List<Coordinate>>();
+      foreach (var asteroid in asteroids)
+      {
+        // flip all y values wiht a negative
+        var deltaX = asteroid.X - originX;
+        var deltaY = (asteroid.Y) - (originY);
+        var degrees = Math.Tan((double)deltaY / deltaX) * (double)180 / Math.PI;
+
+        if (!degreesLookup.ContainsKey(degrees))
+          degreesLookup.Add(degrees, new List<Coordinate>());
+
+        degreesLookup[degrees].Add(new Coordinate(asteroid.X, asteroid.Y));
+      }
+
+      var ordering = new List<Coordinate>();
+      // get first asteroid to be destroyed
+      while (degreesLookup.Any(x => x.Value.Count > 0))
+      {
+        foreach (var direction in degreesLookup.OrderBy(x => x.Key).ToList())
+        {
+          var asteroidToDestroy = direction.Value.OrderBy(x => GetDistance(x.X, x.Y, originX, originY)).FirstOrDefault();
+          if (asteroidToDestroy != null)
+          {
+            // deep the closest asteroid from that direction
+            ordering.Add(new Coordinate(asteroidToDestroy.X, asteroidToDestroy.Y));
+
+            // remove it from the list of asteroids
+            degreesLookup[direction.Key].Remove(new Coordinate(asteroidToDestroy.X, asteroidToDestroy.Y));
+          }
+        }
+      }
+      
+      return ordering;
+    }
+
+    private double GetDistance(int x1, int y1, int x2, int y2)
+    {
+      var x = (double)Math.Abs(x1 - x2);
+      var y = (double)Math.Abs(y1 - y2);
+
+      return Math.Sqrt(Math.Pow(x, 2.0) + Math.Pow(y, 2.0));
+    }
+
+    public List<Coordinate> GetListOfIntersectingAsteroids(int originX, int originY)
+    {
+      var asteroids = new List<Coordinate>();
+      asteroids.AddRange(GetListOfIntersectingAsteroids(_quadrant1Points, originX, originY));
+      asteroids.AddRange(GetListOfIntersectingAsteroids(_quadrant2Points, originX, originY));
+      asteroids.AddRange(GetListOfIntersectingAsteroids(_quadrant3Points, originX, originY));
+      asteroids.AddRange(GetListOfIntersectingAsteroids(_quadrant4Points, originX, originY));
+
+      // perform deep copy
+      return asteroids.Select(x => new Coordinate(x.X, x.Y)).ToList();
+    }
+
+    public List<Coordinate> GetListOfIntersectingAsteroids(Dictionary<Slope, List<Coordinate>> quadrant, int originX, int originY)
+    {
+      var asteroids = new List<Coordinate>();
+
+      foreach (var slope in quadrant.Keys)
+      {
+        // deep copy coordinates to adjsut x,y values on the fly
+        // due to origin translation
+        var lineOfSightCoordinates = new Coordinate[quadrant[slope].Count];
+        for (var i = 0; i < lineOfSightCoordinates.Length; i++)
+        {
+          lineOfSightCoordinates[i] = new Coordinate(quadrant[slope][i].X + originX, quadrant[slope][i].Y + originY);
+        }
+
+        asteroids.AddRange(lineOfSightCoordinates.Intersect(_map.ToArray()).ToList());
+      }
+
+      return asteroids;
+    }
+
     public Coordinate FindBestViewingLocation()
     {
       Coordinate bestCoordinate = null;

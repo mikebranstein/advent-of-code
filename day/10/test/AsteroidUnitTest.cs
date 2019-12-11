@@ -451,5 +451,25 @@ namespace test
       Assert.AreEqual(coordinate, expectedCoordinate);
       Assert.AreEqual(asteroidCount, expectedAsteroidCount);
     }
+
+    [TestMethod]
+    public void Can_Find_Best_Viewing_Location_part_2()
+    {
+      // arrange
+      // .#..#
+      // .....
+      // #####
+      // ....#
+      // ...##
+      var inputFileName = "TestFiles/test_6.txt";
+      var expectedCoordinate = new Coordinate(20, 21);
+      var expectedAsteroidCount = 247;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var x = asteroidField.GetDestructionOrder(11, 13);
+
+      // assert
+    }
   }
 }
