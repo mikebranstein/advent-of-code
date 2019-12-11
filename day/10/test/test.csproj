@@ -13,4 +13,22 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\challenge\challenge.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestFiles\test_1.txt" />
+    <None Remove="TestFiles\test_1 %28copy%29.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestFiles\test_1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\test_2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
