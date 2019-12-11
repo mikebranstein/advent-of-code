@@ -16,6 +16,10 @@ namespace challenge
       var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
 
       Console.WriteLine($"Best viewing location: ({coordinate.X}, {coordinate.Y}), asteroid count: {asteroidCount}");
+
+      var asteroid200Calculation = asteroidField.GetPart2Answer();
+      Console.WriteLine($"200th asteroid to be destroyed: {asteroid200Calculation}");
+
       Console.WriteLine("Finished.");
 
       Console.ReadLine();

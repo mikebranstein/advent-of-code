@@ -417,12 +417,12 @@ namespace test
       var inputFileName = "TestFiles/test_6.txt";
       var expectedCoordinate = new Coordinate(11, 13);
       var expectedAsteroidCount = 210;
-
+    
       // act
       var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
       var coordinate = asteroidField.FindBestViewingLocation();
       var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
-
+    
       // assert
       Assert.AreEqual(coordinate, expectedCoordinate);
       Assert.AreEqual(asteroidCount, expectedAsteroidCount);
@@ -441,35 +441,121 @@ namespace test
       var inputFileName = "TestFiles/input.txt";
       var expectedCoordinate = new Coordinate(20, 21);
       var expectedAsteroidCount = 247;
-
+    
       // act
       var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
       var coordinate = asteroidField.FindBestViewingLocation();
       var asteroidCount = asteroidField.NumAsteroidsInDirectSight(coordinate.X, coordinate.Y);
-
+    
       // assert
       Assert.AreEqual(coordinate, expectedCoordinate);
       Assert.AreEqual(asteroidCount, expectedAsteroidCount);
     }
 
     [TestMethod]
-    public void Can_Find_Best_Viewing_Location_part_2()
+    public void Can_Calculate_Destruction_Order_part_2()
     {
       // arrange
-      // .#..#
-      // .....
-      // #####
-      // ....#
-      // ...##
       var inputFileName = "TestFiles/test_6.txt";
-      var expectedCoordinate = new Coordinate(20, 21);
-      var expectedAsteroidCount = 247;
+    
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var destructionOrder = asteroidField.GetDestructionOrder(11, 13);
+
+      // assert
+      //The 1st asteroid to be vaporized is at 11,12.
+      //The 2nd asteroid to be vaporized is at 12,1.
+      //The 3rd asteroid to be vaporized is at 12,2.
+      //The 10th asteroid to be vaporized is at 12,8.
+      //The 20th asteroid to be vaporized is at 16,0.
+      //The 50th asteroid to be vaporized is at 16,9.
+      //The 100th asteroid to be vaporized is at 10,16.
+      //The 199th asteroid to be vaporized is at 9,6.
+      //The 200th asteroid to be vaporized is at 8,2.
+      //The 201st asteroid to be vaporized is at 10,9.
+      //The 299th and final asteroid to be vaporized is at 11,1.
+      Assert.AreEqual(destructionOrder[0].X, 11);
+      Assert.AreEqual(destructionOrder[0].Y, 12);
+
+      Assert.AreEqual(destructionOrder[1].X, 12);
+      Assert.AreEqual(destructionOrder[1].Y, 1);
+
+      Assert.AreEqual(destructionOrder[2].X, 12);
+      Assert.AreEqual(destructionOrder[2].Y, 2);
+
+      Assert.AreEqual(destructionOrder[9].X, 12);
+      Assert.AreEqual(destructionOrder[9].Y, 8);
+
+      Assert.AreEqual(destructionOrder[19].X, 16);
+      Assert.AreEqual(destructionOrder[19].Y, 0);
+
+      Assert.AreEqual(destructionOrder[49].X, 16);
+      Assert.AreEqual(destructionOrder[49].Y, 9);
+
+      Assert.AreEqual(destructionOrder[99].X, 10);
+      Assert.AreEqual(destructionOrder[99].Y, 16);
+
+      Assert.AreEqual(destructionOrder[198].X, 9);
+      Assert.AreEqual(destructionOrder[198].Y, 6);
+
+      Assert.AreEqual(destructionOrder[199].X, 8);
+      Assert.AreEqual(destructionOrder[199].Y, 2);
+
+      Assert.AreEqual(destructionOrder[200].X, 10);
+      Assert.AreEqual(destructionOrder[200].Y, 9);
+
+      Assert.AreEqual(destructionOrder[298].X, 11);
+      Assert.AreEqual(destructionOrder[298].Y, 1);
+    }
+
+    [TestMethod]
+    public void Can_Calculate_Degrees_Offset_UP_1()
+    {
+      // arrange
+      var origin = new Coordinate(2, 3);
+      var asteroid = new Coordinate(2, 2);
+      var inputFileName = "TestFiles/test_2.txt";
 
       // act
       var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
-      var x = asteroidField.GetDestructionOrder(11, 13);
+      var degreesOffset = asteroidField.GetDegreesOffset(origin.X, origin.Y, asteroid.X, asteroid.Y);
 
       // assert
+      Assert.AreEqual(degreesOffset, 0);
     }
+
+    [TestMethod]
+    public void Can_Calculate_Degrees_Offset_UP_2()
+    {
+      // arrange
+      var origin = new Coordinate(2, 3);
+      var asteroid = new Coordinate(2, -5);
+      var inputFileName = "TestFiles/test_2.txt";
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var degreesOffset = asteroidField.GetDegreesOffset(origin.X, origin.Y, asteroid.X, asteroid.Y);
+
+      // assert
+      Assert.AreEqual(degreesOffset, 0);
+    }
+
+    [TestMethod]
+    public void Can_Calculate_Degrees_Offset_45_2()
+    {
+      // arrange
+      var origin = new Coordinate(2, 3);
+      var asteroid = new Coordinate(3, 2);
+      var inputFileName = "TestFiles/test_2.txt";
+      var expectedDegreesOffset = 45.0;
+
+      // act
+      var asteroidField = AsteroidFieldFactory.CreateFromFile(inputFileName);
+      var degreesOffset = asteroidField.GetDegreesOffset(origin.X, origin.Y, asteroid.X, asteroid.Y);
+
+      // assert
+      Assert.AreEqual(degreesOffset, expectedDegreesOffset);
+    }
+
   }
 }

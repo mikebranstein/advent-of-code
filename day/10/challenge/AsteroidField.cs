@@ -32,6 +32,30 @@ namespace challenge
       GeneratePossibleAsteroidPoints();
     }
 
+    public int GetPart2Answer()
+    {
+      var bestViewingLocation = FindBestViewingLocation();
+      var destructionOrder = GetDestructionOrder(bestViewingLocation.X, bestViewingLocation.Y); ;
+      var asteroid200 = destructionOrder[199];
+
+      return (asteroid200.X * 100) + asteroid200.Y;
+    }
+
+    public double GetDegreesOffset(int originX, int originY, int asteroidX, int asteroidY)
+    {
+      var deltaX = asteroidX - originX;
+      var deltaY = asteroidY - originY;
+      double degrees =
+        deltaY == 0 && deltaX > 0 ? 90 :
+        deltaY == 0 && deltaX < 0 ? 270 :
+        deltaX == 0 && deltaY > 0 ? 180 :
+        deltaX == 0 && deltaY < 0 ? 0 :
+        deltaX > 0 ? (Math.Atan((double)deltaY / (double)deltaX) * (double)180 / Math.PI) + 90 :
+        deltaX < 0 ? (Math.Atan((double)deltaY / (double)deltaX) * (double)180 / Math.PI) + 270 :
+        0;
+      return degrees;
+    }
+
     public List<Coordinate> GetDestructionOrder(int originX, int originY)
     {
       // get intersecting
@@ -43,9 +67,7 @@ namespace challenge
       foreach (var asteroid in asteroids)
       {
         // flip all y values wiht a negative
-        var deltaX = asteroid.X - originX;
-        var deltaY = (asteroid.Y) - (originY);
-        var degrees = Math.Tan((double)deltaY / deltaX) * (double)180 / Math.PI;
+        var degrees = GetDegreesOffset(originX, originY, asteroid.X, asteroid.Y);
 
         if (!degreesLookup.ContainsKey(degrees))
           degreesLookup.Add(degrees, new List<Coordinate>());
