@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using IntcodeComputer;
@@ -24,8 +25,32 @@ namespace HullPainting
       return _path.Count;
     }
 
+    public List<string> OutputPanelText()
+    {
+      // get panel dimensions
+      var minX = _path.Keys.OrderBy(x => x.X).ToList()[0].X;
+      var maxX = _path.Keys.OrderBy(x => x.X).ToList()[_path.Keys.Count - 1].X;
+      var minY = _path.Keys.OrderBy(x => x.Y).ToList()[0].Y;
+      var maxY = _path.Keys.OrderBy(x => x.Y).ToList()[_path.Keys.Count - 1].Y;
 
-    public async Task Run()
+      var panel = new List<string>();
+
+      // create list of strings
+      for (var y = maxY; y >= minY; y--)
+      {
+        var line = "";
+        for (var x = minX; x < maxX; x++)
+        {
+          var color = ReadColor(x, y);
+          line += color == Color.Black ? "." : "#";
+        }
+        panel.Add(line);
+      }
+
+      return panel;
+    }
+
+    public async Task Run(Color startingPanelColor)
     {
       // start the computer
       var inputBuffer = new BufferBlock<long>();
@@ -36,6 +61,7 @@ namespace HullPainting
       var x = 0;
       var y = 0;
       var currentFacingDirection = Direction.Up;
+      SetColor(x, y, startingPanelColor);
 
       while (!computerExecution.IsCompleted)
       {

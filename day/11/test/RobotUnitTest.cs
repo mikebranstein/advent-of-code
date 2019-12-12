@@ -16,7 +16,7 @@ namespace test
       var expectedPanelsPainted = 2141;
 
       // act
-      Task.Run(() => robot.Run()).Wait();
+      Task.Run(() => robot.Run(Color.Black)).Wait();
       var panelsPainted = robot.GetNumPanelsPainted();
 
       // assert
