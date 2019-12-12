@@ -10,11 +10,15 @@ namespace IntcodeComputer
 {
   public class Computer
   {
+    public CancellationToken CancellationToken => _cancellationTokenSource.Token;
+
     private Dictionary<int, long> _virtualMemory;
+    private CancellationTokenSource _cancellationTokenSource;
 
     public Computer()
     {
       _virtualMemory = new Dictionary<int, long>();
+      _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public long Run(List<long> memory, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer)
