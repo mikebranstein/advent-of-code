@@ -23,5 +23,20 @@ namespace test
       // assert
       Assert.AreEqual(blockTiles, expectedBlockTiles);
     }
+
+    [TestMethod]
+    public void Test_Part_2()
+    {
+      // arrange
+      var program = new Program();
+      var inputFileName = "TestFiles/input_2.txt";
+
+      // act
+      Task.Run(() => program.Run(inputFileName)).Wait();
+
+      // assert
+      var i = 0;
+    }
+
   }
 }

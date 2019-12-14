@@ -81,6 +81,18 @@ namespace IntcodeComputer
       while (instruction.GetType() != typeof(HaltInstruction));
     }
 
+    public IInstruction ExecuteProgramUntilOutput(List<long> memory, BufferBlock<long> inputBuffer, BufferBlock<long> outputBuffer, ref int instructionPointer, ref int relativeBase)
+    {
+      IInstruction instruction = null;
+      do
+      {
+        instruction = InstructionFactory.ParseInstruction(memory, instructionPointer);
+        instruction.Execute(memory, _virtualMemory, ref instructionPointer, ref relativeBase, inputBuffer, outputBuffer);
+      }
+      while (instruction.GetType() != typeof(HaltInstruction) && instruction.GetType() != typeof(OutputInstruction));
+      return instruction;
+    }
+
     public string ConvertMemoryToString(List<long> code)
     {
       var codeString = "";

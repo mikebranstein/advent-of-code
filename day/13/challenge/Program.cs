@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -12,14 +13,51 @@ namespace challenge
     static void Main(string[] args)
     {
       Console.WriteLine("Hello World!");
+      do
+      {
+        var program = new Program();
+        Task.Run(() => program.Run("input_2.txt")).Wait();
+        Console.WriteLine("Replay?");
+        Console.ReadKey();
+      }
+      while (true);
     }
 
     public Program()
     {
       GameBoard = new Dictionary<Coordinate, TileType>();
+      Score = 0;
+      PreviousBallLocationX = 0;
     }
 
+    public int Score { get; set; }
     public Dictionary<Coordinate, TileType> GameBoard { get; set; }
+    public int PreviousBallLocationX { get; set; }
+
+    public void PrintGameBoard()
+    {
+      // get max x,y coords
+      var maxX = GameBoard.Max(x => x.Key.X);
+      var maxY = GameBoard.Max(x => x.Key.Y);
+
+      for (var y = 0; y < maxY; y++)
+      {
+        var line = "";
+        for (var x =0; x < maxX; x++)
+        {
+          var tileType = ReadTileType(x, y);
+          var charToAdd =
+            tileType == TileType.Empty ? " " :
+            tileType == TileType.Ball ? "o" :
+            tileType == TileType.Block ? "@" :
+            tileType == TileType.Wall ? "#" :
+            tileType == TileType.Paddle ? "_" :
+            " ";
+          line += charToAdd;
+        }
+        Console.WriteLine($"{line}");
+      }
+    }
 
     public async Task Run(string inputFileName)
     {
@@ -29,34 +67,69 @@ namespace challenge
       // start the computer
       var inputBuffer = new BufferBlock<long>();
       var outputBuffer = new BufferBlock<long>();
-      var computerExecution = Task.Run(() => computer.ExecuteProgram(memory, inputBuffer, outputBuffer));
+      var instructionPointer = 0;
+      var relativeBase = 0;
 
-      var instructions = new List<long>();
-      while (!computerExecution.IsCompleted)
+      IInstruction computerInstruction = null;
+      int lastGameMove = 0;
+      do
       {
-        try
-        {
-          var instruction = await outputBuffer.ReceiveAsync(new TimeSpan(500));
-          instructions.Add(instruction);
+        var instructions = new List<long>();
 
-          // wait until 3 instrucitons are collected
-          if (instructions.Count == 3)
-          {
-            ProcessInstruction((int)instructions[0], (int)instructions[1], (TileType)(int)instructions[2]);
+        // process output 1
+        computerInstruction = computer.ExecuteProgramUntilOutput(memory, inputBuffer, outputBuffer, ref instructionPointer, ref relativeBase);
+        if (computerInstruction.GetType() == typeof(HaltInstruction)) continue;
 
-            // clean out the instruction to allow the next 3 to flow in
-            instructions.Clear();
-          }
-        }
-        catch (TimeoutException timeout)
+        instructions.Add(await outputBuffer.ReceiveAsync());
+
+        // get output 2
+        computerInstruction = computer.ExecuteProgramUntilOutput(memory, inputBuffer, outputBuffer, ref instructionPointer, ref relativeBase);
+        instructions.Add(await outputBuffer.ReceiveAsync());
+
+        // get output 3
+        computerInstruction = computer.ExecuteProgramUntilOutput(memory, inputBuffer, outputBuffer, ref instructionPointer, ref relativeBase);
+        instructions.Add(await outputBuffer.ReceiveAsync());
+
+        ProcessInstruction((int)instructions[0], (int)instructions[1], (int)instructions[2], inputBuffer);
+        lastGameMove = (int)instructions[2];
+
+        if (lastGameMove == 3) PrintGameBoard();
+
+        // ball or paddle moved
+        if (lastGameMove == 4)
         {
-          // do noting
+          // print to screen
+          PrintGameBoard();
+
+          //// get key
+          //Console.WriteLine($"Current score: {Score}");
+          //Console.WriteLine("Move paddle? Left, right, none (up)?");
+          //
+          //var key = Console.ReadKey();
+          //while (key.Key != ConsoleKey.LeftArrow && key.Key != ConsoleKey.RightArrow && key.Key != ConsoleKey.UpArrow)
+          //{
+          //  Console.WriteLine("Move paddle? Left, right, none (up)?");
+          //  key = Console.ReadKey();
+          //}
+          //if (key.Key == ConsoleKey.UpArrow) await inputBuffer.SendAsync(0);
+          //else if (key.Key == ConsoleKey.LeftArrow) await inputBuffer.SendAsync(-1);
+          //else if (key.Key == ConsoleKey.RightArrow) await inputBuffer.SendAsync(1);
         }
       }
+      while (computerInstruction.GetType() != typeof(HaltInstruction));
+
+      Console.WriteLine($"Final score: {Score}");
     }
 
-    private void ProcessInstruction(int x, int y, TileType tileType)
+    private void ProcessInstruction(int x, int y, int parameter, BufferBlock<long> inputBuffer)
     {
+      if (x == -1 && y == 0)
+      {
+        Score = parameter;
+        return;
+      }
+
+      var tileType = (TileType)parameter;
       switch (tileType)
       {
         case TileType.Empty:
@@ -77,9 +150,80 @@ namespace challenge
 
         case TileType.Ball:
           SetTileType(x, y, tileType);
+
+          var paddleLocation = GetPaddleLocation();
+          if (paddleLocation == null)
+          {
+            Task.Run(() => inputBuffer.SendAsync(0)).Wait();
+            break;
+          }
+
+
+
+          var ballMovingRight = (PreviousBallLocationX - x < 0);
+          var paddleOnRightOfBall = (paddleLocation.X - x > 0);
+
+          if (ballMovingRight)
+          {
+            if (paddleOnRightOfBall)
+            {
+              // move paddle left
+              var spacesToMoveLeft = paddleLocation.X - (x + 1);
+              //if (spacesToMoveLeft == 0)
+              //  Task.Run(() => inputBuffer.SendAsync(0)).Wait();
+              //else
+              //  for (var i = 0; i < spacesToMoveLeft; i++)
+                  Task.Run(() => inputBuffer.SendAsync(-1)).Wait();
+            }
+            else
+            {
+              // move paddle right
+              var spacesToModeRight = x - paddleLocation.X + 1;
+              //if (spacesToModeRight == 0)
+              //  Task.Run(() => inputBuffer.SendAsync(0)).Wait();
+              //else 
+              //  for (var i = 0; i < spacesToModeRight; i++)
+                  Task.Run(() => inputBuffer.SendAsync(1)).Wait();
+            }            
+          }
+          else
+          {
+            if (paddleOnRightOfBall)
+            {
+              // move paddle left
+              var spacesToMoveLeft = paddleLocation.X - x + 1;
+              //if (spacesToMoveLeft == 0)
+              //  Task.Run(() => inputBuffer.SendAsync(0)).Wait();
+              //else
+              //  for (var i = 0; i < spacesToMoveLeft; i++)
+                  Task.Run(() => inputBuffer.SendAsync(-1)).Wait();
+            }
+            else
+            {
+              // move paddle right
+              var spacesToModeRight = x - (paddleLocation.X + 1);
+              //if (spacesToModeRight == 0)
+              //  Task.Run(() => inputBuffer.SendAsync(0)).Wait();
+              //else
+              //  for (var i = 0; i < spacesToModeRight; i++)
+                  Task.Run(() => inputBuffer.SendAsync(1)).Wait();
+            }
+          }
+
+          PreviousBallLocationX = x;
           break;
       }
 
+    }
+
+    private Coordinate GetPaddleLocation()
+    {
+      return GameBoard.Where(x => x.Value == TileType.Paddle).FirstOrDefault().Key;
+    }
+
+    private Coordinate GetBallLocation()
+    {
+      return GameBoard.Where(x => x.Value == TileType.Ball).FirstOrDefault().Key;
     }
 
     private TileType ReadTileType(int x, int y)

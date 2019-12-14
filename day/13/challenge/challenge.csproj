@@ -8,4 +8,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\computer\IntcodeComputer\IntcodeComputer.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="input_2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="input_2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

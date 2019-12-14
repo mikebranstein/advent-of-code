@@ -21,9 +21,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="TestFiles\input.txt" />
+    <None Remove="TestFiles\input %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\input_2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
